@@ -25,8 +25,7 @@ function createWindow(): void {
         height: Math.min(900, height),
         minWidth: 800,
         minHeight: 600,
-        titleBarStyle: 'hidden',
-        titleBarOverlay: false,
+        frame: false, // Hide native title bar — custom controls are in TabStrip
         backgroundColor: '#101622',
         show: false, // Show after ready to prevent white flash
     });

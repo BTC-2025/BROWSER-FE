@@ -23,23 +23,27 @@ export default function TabStrip() {
         window.browserAPI?.maximizeWindow();
     };
 
+    const isElectron = typeof window !== 'undefined' && !!window.browserAPI;
+
     return (
         <div className="flex items-end px-2 pt-2 gap-2 select-none drag" style={{ height: '40px' }}>
-            {/* Window Controls */}
-            <div className="flex items-center gap-2 px-3 pb-2 no-drag">
-                <div
-                    className="w-3 h-3 rounded-full bg-red-500 hover:brightness-110 transition-all cursor-pointer"
-                    onClick={handleCloseWindow}
-                />
-                <div
-                    className="w-3 h-3 rounded-full bg-yellow-500 hover:brightness-110 transition-all cursor-pointer"
-                    onClick={handleMinimizeWindow}
-                />
-                <div
-                    className="w-3 h-3 rounded-full bg-green-500 hover:brightness-110 transition-all cursor-pointer"
-                    onClick={handleMaximizeWindow}
-                />
-            </div>
+            {/* Window Controls — only show in Electron, not in browser dev mode */}
+            {isElectron && (
+                <div className="flex items-center gap-2 px-3 pb-2 no-drag">
+                    <div
+                        className="w-3 h-3 rounded-full bg-red-500 hover:brightness-110 transition-all cursor-pointer"
+                        onClick={handleCloseWindow}
+                    />
+                    <div
+                        className="w-3 h-3 rounded-full bg-yellow-500 hover:brightness-110 transition-all cursor-pointer"
+                        onClick={handleMinimizeWindow}
+                    />
+                    <div
+                        className="w-3 h-3 rounded-full bg-green-500 hover:brightness-110 transition-all cursor-pointer"
+                        onClick={handleMaximizeWindow}
+                    />
+                </div>
+            )}
 
             {/* Tab List */}
             <div className="flex flex-1 gap-1 overflow-x-auto no-scrollbar items-end h-full no-drag">
