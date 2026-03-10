@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Private Browsing Mode</title>
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<!-- Google Fonts -->
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&amp;display=swap" rel="stylesheet"/>
+<!-- Material Symbols -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Theme Configuration -->
+<script>
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#7311d4",
+                        "primary-glow": "#9d4edd",
+                        "background-light": "#f7f6f8",
+                        "background-dark": "#0f0f15",
+                        "surface-dark": "#181820",
+                        "glass-border": "rgba(255, 255, 255, 0.08)",
+                        "glass-bg": "rgba(20, 20, 25, 0.6)",
+                    },
+                    fontFamily: {
+                        "display": ["Inter", "sans-serif"]
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.375rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "2xl": "1rem",
+                        "full": "9999px"
+                    },
+                    backgroundImage: {
+                        'gradient-mesh': 'radial-gradient(circle at 15% 50%, rgba(115, 17, 212, 0.15), transparent 25%), radial-gradient(circle at 85% 30%, rgba(60, 20, 100, 0.2), transparent 25%)',
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        
+        .glass-panel {
+            background: rgba(24, 24, 32, 0.65);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .glass-card {
+            background: linear-gradient(145deg, rgba(255, 255, 255, 0.03) 0%, rgba(255, 255, 255, 0.01) 100%);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            transition: all 0.3s ease;
+        }
+
+        .glass-card:hover {
+            border-color: rgba(115, 17, 212, 0.3);
+            background: linear-gradient(145deg, rgba(255, 255, 255, 0.05) 0%, rgba(255, 255, 255, 0.02) 100%);
+            transform: translateY(-2px);
+            box-shadow: 0 10px 40px -10px rgba(115, 17, 212, 0.2);
+        }
+
+        .mesh-bg {
+            background-color: #0f0f15;
+            background-image: 
+                radial-gradient(at 0% 0%, hsla(271,76%,25%,0.3) 0px, transparent 50%),
+                radial-gradient(at 100% 0%, hsla(253,16%,15%,1) 0px, transparent 50%),
+                radial-gradient(at 100% 100%, hsla(271,76%,15%,0.3) 0px, transparent 50%),
+                radial-gradient(at 0% 100%, hsla(240,10%,10%,1) 0px, transparent 50%),
+                radial-gradient(at 50% 50%, hsla(271,76%,10%,0.5) 0px, transparent 50%);
+            background-size: 100% 100%;
+        }
+        
+        /* Subtle scanline effect */
+        .scanlines {
+            background: linear-gradient(to bottom, rgba(255,255,255,0), rgba(255,255,255,0) 50%, rgba(0,0,0,0.1) 50%, rgba(0,0,0,0.1));
+            background-size: 100% 4px;
+            pointer-events: none;
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            z-index: 10;
+            opacity: 0.15;
+        }
+    </style>
+</head>
+<body class="bg-background-dark text-slate-100 h-screen overflow-hidden flex flex-col relative mesh-bg">
+<!-- Ambient Background Effects -->
+<div class="absolute inset-0 z-0 pointer-events-none overflow-hidden">
+<div class="absolute top-[-10%] left-[-10%] w-[40%] h-[40%] rounded-full bg-primary/20 blur-[120px]"></div>
+<div class="absolute bottom-[-10%] right-[-10%] w-[40%] h-[40%] rounded-full bg-primary/10 blur-[100px]"></div>
+</div>
+<!-- Scanlines overlay -->
+<div class="scanlines"></div>
+<!-- Browser Chrome (Top Bar) -->
+<header class="relative z-50 glass-panel flex flex-col border-b-0 w-full shrink-0">
+<!-- Tab Bar -->
+<div class="flex items-end px-2 pt-2 gap-2 h-10 select-none">
+<!-- Window Controls (Mac style simulation) -->
+<div class="flex gap-2 px-3 pb-2 items-center mr-2">
+<div class="w-3 h-3 rounded-full bg-[#FF5F57]"></div>
+<div class="w-3 h-3 rounded-full bg-[#FEBC2E]"></div>
+<div class="w-3 h-3 rounded-full bg-[#28C840]"></div>
+</div>
+<!-- Active Tab -->
+<div class="relative group flex items-center min-w-[160px] max-w-[240px] h-full bg-[#2a2435]/80 rounded-t-lg px-3 gap-2 border-t border-x border-glass-border">
+<span class="material-symbols-outlined text-primary text-[18px]">visibility_off</span>
+<span class="text-xs font-medium text-white truncate flex-1">New Private Tab</span>
+<button class="text-slate-400 hover:text-white transition-colors rounded p-0.5">
+<span class="material-symbols-outlined text-[14px]">close</span>
+</button>
+<!-- Active Tab Highlight Line -->
+<div class="absolute bottom-0 left-0 right-0 h-[2px] bg-primary shadow-[0_0_10px_rgba(115,17,212,0.8)]"></div>
+</div>
+<!-- Inactive Tab -->
+<div class="flex items-center min-w-[160px] max-w-[240px] h-full hover:bg-white/5 rounded-t-lg px-3 gap-2 transition-colors cursor-pointer opacity-60 hover:opacity-100">
+<span class="material-symbols-outlined text-slate-400 text-[18px]">public</span>
+<span class="text-xs font-medium text-slate-400 truncate flex-1">Wikipedia</span>
+<button class="text-slate-500 hover:text-slate-300 transition-colors rounded p-0.5 opacity-0 group-hover:opacity-100">
+<span class="material-symbols-outlined text-[14px]">close</span>
+</button>
+</div>
+<!-- New Tab Button -->
+<button class="p-1 rounded-full hover:bg-white/10 text-slate-400 transition-colors mb-1 ml-1">
+<span class="material-symbols-outlined text-[20px]">add</span>
+</button>
+</div>
+<!-- Navigation & URL Bar -->
+<div class="flex items-center px-4 py-2 gap-4 border-b border-glass-border bg-[#1a1621]/40">
+<!-- Navigation Controls -->
+<div class="flex items-center gap-2 text-slate-400">
+<button class="p-1.5 rounded-full hover:bg-white/10 disabled:opacity-30 transition-colors">
+<span class="material-symbols-outlined text-[20px]">arrow_back</span>
+</button>
+<button class="p-1.5 rounded-full hover:bg-white/10 disabled:opacity-30 transition-colors" disabled="">
+<span class="material-symbols-outlined text-[20px]">arrow_forward</span>
+</button>
+<button class="p-1.5 rounded-full hover:bg-white/10 transition-colors">
+<span class="material-symbols-outlined text-[18px]">refresh</span>
+</button>
+</div>
+<!-- Address Bar -->
+<div class="flex-1 flex justify-center">
+<div class="relative w-full max-w-3xl flex items-center bg-[#0f0f15]/80 border border-glass-border rounded-full h-9 px-3 hover:border-primary/40 focus-within:border-primary transition-colors group shadow-inner">
+<span class="material-symbols-outlined text-primary text-[18px] mr-2">lock</span>
+<input class="w-full bg-transparent border-none outline-none text-sm text-slate-200 placeholder-slate-500 focus:ring-0 h-full p-0" placeholder="Search or enter address" type="text"/>
+<div class="flex items-center gap-2 ml-2">
+<span class="material-symbols-outlined text-slate-500 text-[18px] cursor-pointer hover:text-slate-300">star</span>
+</div>
+</div>
+</div>
+<!-- Toolbar Actions -->
+<div class="flex items-center gap-3">
+<div class="bg-primary/20 border border-primary/30 text-primary px-3 py-1 rounded-full text-xs font-bold tracking-wide flex items-center gap-1.5 shadow-[0_0_15px_rgba(115,17,212,0.15)]">
+<span class="material-symbols-outlined text-[14px] font-bold">shield</span>
+                    PRIVATE
+                </div>
+<div class="h-6 w-[1px] bg-white/10 mx-1"></div>
+<button class="p-1.5 rounded-lg hover:bg-white/10 text-slate-400 transition-colors">
+<span class="material-symbols-outlined text-[20px]">extension</span>
+</button>
+<button class="p-1.5 rounded-lg hover:bg-white/10 text-slate-400 transition-colors">
+<span class="material-symbols-outlined text-[20px]">account_circle</span>
+</button>
+<button class="p-1.5 rounded-lg hover:bg-white/10 text-slate-400 transition-colors">
+<span class="material-symbols-outlined text-[20px]">more_vert</span>
+</button>
+</div>
+</div>
+</header>
+<!-- Main Content -->
+<main class="relative z-10 flex-1 overflow-y-auto flex flex-col items-center justify-center p-6">
+<div class="max-w-5xl w-full flex flex-col items-center gap-12">
+<!-- Hero Text -->
+<div class="text-center space-y-6">
+<div class="inline-flex items-center justify-center p-4 rounded-full bg-primary/10 border border-primary/20 shadow-[0_0_30px_rgba(115,17,212,0.2)] mb-4 animate-pulse">
+<span class="material-symbols-outlined text-primary text-[48px]">incognito</span>
+</div>
+<h1 class="text-5xl md:text-6xl font-black text-transparent bg-clip-text bg-gradient-to-br from-white via-slate-200 to-slate-500 tracking-tight drop-shadow-sm">
+                    Private Browsing
+                </h1>
+<p class="text-lg md:text-xl text-slate-400 max-w-2xl mx-auto font-light leading-relaxed">
+                    Browse the web anonymously. Your history, cookies, and site data will vanish the moment you close this window.
+                </p>
+</div>
+<!-- Feature Cards Grid -->
+<div class="grid grid-cols-1 md:grid-cols-3 gap-6 w-full">
+<!-- Card 1 -->
+<div class="glass-card rounded-2xl p-6 flex flex-col gap-4 group/card">
+<div class="w-12 h-12 rounded-xl bg-slate-800/50 flex items-center justify-center border border-white/5 group-hover/card:bg-primary/20 group-hover/card:border-primary/40 transition-all duration-300">
+<span class="material-symbols-outlined text-slate-300 group-hover/card:text-primary text-[24px]">history_toggle_off</span>
+</div>
+<div>
+<h3 class="text-lg font-bold text-white mb-2">No History Saved</h3>
+<p class="text-sm text-slate-400 leading-relaxed">
+                            Pages you visit in this window won't appear in your browser history or search history.
+                        </p>
+</div>
+</div>
+<!-- Card 2 -->
+<div class="glass-card rounded-2xl p-6 flex flex-col gap-4 group/card">
+<div class="w-12 h-12 rounded-xl bg-slate-800/50 flex items-center justify-center border border-white/5 group-hover/card:bg-primary/20 group-hover/card:border-primary/40 transition-all duration-300">
+<span class="material-symbols-outlined text-slate-300 group-hover/card:text-primary text-[24px]">cookie_off</span>
+</div>
+<div>
+<h3 class="text-lg font-bold text-white mb-2">No Cookies Kept</h3>
+<p class="text-sm text-slate-400 leading-relaxed">
+                            Cookies and site data are stored temporarily and deleted when you close private windows.
+                        </p>
+</div>
+</div>
+<!-- Card 3 -->
+<div class="glass-card rounded-2xl p-6 flex flex-col gap-4 group/card">
+<div class="w-12 h-12 rounded-xl bg-slate-800/50 flex items-center justify-center border border-white/5 group-hover/card:bg-primary/20 group-hover/card:border-primary/40 transition-all duration-300">
+<span class="material-symbols-outlined text-slate-300 group-hover/card:text-primary text-[24px]">encrypted</span>
+</div>
+<div>
+<h3 class="text-lg font-bold text-white mb-2">Enhanced Security</h3>
+<p class="text-sm text-slate-400 leading-relaxed">
+                            Third-party trackers are blocked by default to protect your digital footprint.
+                        </p>
+</div>
+</div>
+</div>
+<!-- Footer Action -->
+<div class="flex flex-col items-center gap-4 mt-8">
+<button class="group relative px-8 py-3 bg-primary text-white text-sm font-semibold rounded-lg shadow-lg shadow-primary/25 hover:shadow-primary/40 hover:bg-[#8524e6] transition-all overflow-hidden">
+<div class="absolute inset-0 w-full h-full bg-gradient-to-r from-transparent via-white/10 to-transparent translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-700"></div>
+<span class="relative flex items-center gap-2">
+                        Close Private Mode
+                        <span class="material-symbols-outlined text-[16px]">logout</span>
+</span>
+</button>
+<a class="text-xs text-slate-500 hover:text-primary transition-colors flex items-center gap-1" href="#">
+                    Learn more about privacy
+                    <span class="material-symbols-outlined text-[12px]">open_in_new</span>
+</a>
+</div>
+</div>
+<!-- Abstract Decorative Elements in Main Content -->
+<div class="absolute bottom-10 left-10 opacity-20 pointer-events-none">
+<div class="text-[10rem] font-black text-white/5 select-none leading-none">01</div>
+</div>
+<div class="absolute top-20 right-10 opacity-20 pointer-events-none">
+<div class="w-32 h-32 border border-dashed border-white/20 rounded-full animate-[spin_10s_linear_infinite]"></div>
+</div>
+</main>
+</body></html>

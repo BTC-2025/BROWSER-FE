@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Browser Settings</title>
+<!-- Fonts -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Audiowide&amp;family=Inter:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script>
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "primary": "#135bec",
+              "primary-light": "#5c91ff",
+              "background-light": "#f6f6f8",
+              "background-dark": "#0f1115",
+              "glass-border": "rgba(255, 255, 255, 0.08)",
+              "glass-bg": "rgba(20, 25, 40, 0.6)",
+              "glass-bg-hover": "rgba(30, 40, 60, 0.7)",
+            },
+            fontFamily: {
+              "display": ["Inter", "sans-serif"],
+              "header": ["Audiowide", "cursive"],
+            },
+            borderRadius: {
+                "DEFAULT": "0.25rem", 
+                "lg": "0.5rem", 
+                "xl": "0.75rem", 
+                "2xl": "1rem",
+                "full": "9999px"
+            },
+            boxShadow: {
+                "glass": "0 4px 30px rgba(0, 0, 0, 0.1)",
+                "neon": "0 0 10px rgba(19, 91, 236, 0.5)",
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #0f1115;
+            background-image: 
+                radial-gradient(at 0% 0%, rgba(19, 91, 236, 0.15) 0px, transparent 50%),
+                radial-gradient(at 100% 100%, rgba(139, 92, 246, 0.1) 0px, transparent 50%);
+            min-height: 100vh;
+        }
+        
+        .glass-panel {
+            background: rgba(23, 28, 38, 0.65);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .glass-card {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+    </style>
+</head>
+<body class="text-slate-900 dark:text-slate-100 antialiased selection:bg-primary selection:text-white overflow-hidden">
+<div class="relative flex h-screen w-full flex-row overflow-hidden">
+<!-- Sidebar Navigation -->
+<aside class="glass-panel w-72 flex-shrink-0 flex flex-col h-full border-r border-glass-border relative z-20">
+<!-- Header Logo Area -->
+<div class="p-6 pb-2">
+<div class="flex items-center gap-3">
+<div class="flex items-center justify-center size-10 rounded-xl bg-gradient-to-br from-primary to-purple-600 shadow-neon text-white">
+<span class="material-symbols-outlined text-2xl">rocket_launch</span>
+</div>
+<div>
+<h1 class="font-header text-xl tracking-wide text-white">NEXUS</h1>
+<p class="text-xs text-slate-400 font-display">Browser v128.0.4</p>
+</div>
+</div>
+</div>
+<!-- Navigation Links -->
+<div class="flex-1 overflow-y-auto px-4 py-6 flex flex-col gap-1">
+<p class="px-3 text-xs font-semibold text-slate-500 uppercase tracking-wider mb-2">Settings</p>
+<a class="flex items-center gap-3 px-4 py-3 rounded-xl text-slate-400 hover:text-white hover:bg-white/5 transition-all duration-200 group" href="#">
+<span class="material-symbols-outlined group-hover:scale-110 transition-transform">settings</span>
+<span class="font-medium">General</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-xl bg-primary/10 text-primary border border-primary/20 shadow-neon" href="#">
+<span class="material-symbols-outlined text-primary" style="font-variation-settings: 'FILL' 1;">palette</span>
+<span class="font-medium">Appearance</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-xl text-slate-400 hover:text-white hover:bg-white/5 transition-all duration-200 group" href="#">
+<span class="material-symbols-outlined group-hover:scale-110 transition-transform">shield</span>
+<span class="font-medium">Privacy</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-xl text-slate-400 hover:text-white hover:bg-white/5 transition-all duration-200 group" href="#">
+<span class="material-symbols-outlined group-hover:scale-110 transition-transform">search</span>
+<span class="font-medium">Search Engine</span>
+</a>
+<div class="my-4 border-t border-glass-border"></div>
+<p class="px-3 text-xs font-semibold text-slate-500 uppercase tracking-wider mb-2">Account</p>
+<a class="flex items-center gap-3 px-4 py-3 rounded-xl text-slate-400 hover:text-white hover:bg-white/5 transition-all duration-200 group" href="#">
+<span class="material-symbols-outlined group-hover:scale-110 transition-transform">person</span>
+<span class="font-medium">Profile</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-xl text-slate-400 hover:text-white hover:bg-white/5 transition-all duration-200 group" href="#">
+<span class="material-symbols-outlined group-hover:scale-110 transition-transform">sync</span>
+<span class="font-medium">Sync</span>
+</a>
+</div>
+<!-- User Profile Snippet -->
+<div class="p-4 border-t border-glass-border bg-black/20">
+<div class="flex items-center gap-3 p-2 rounded-lg hover:bg-white/5 cursor-pointer transition-colors">
+<img alt="User profile picture with futuristic lighting" class="size-10 rounded-full object-cover border-2 border-primary/30" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBVec0zG2KdVsIMck20GPPkAwdqypiHaGkNNYdiLCh6_l-pF8d6Gs8zd5oFDHairSSb9CCx3ION4WVOBbxibZrAHq8G2Zw5Y7Af2985eJqoASCaLWbaRAlO-vnuXMvwUucs8fEljCs6rcdoCBiMCGJQog4rjo05U6DfLru7lTX1SGX5o8SFEXtYmHtooXZKVemqeGGWiVC2pvi2tN48dc-6aHq2oPlccPI69hohdWOLJbHTRoGce6MzrgxDuRwLP8SzvOLFtIGkHmkV"/>
+<div class="flex flex-col">
+<span class="text-sm font-medium text-white">Elara Vance</span>
+<span class="text-xs text-slate-400">Pro Member</span>
+</div>
+</div>
+</div>
+</aside>
+<!-- Main Content Area -->
+<main class="flex-1 flex flex-col h-full overflow-hidden relative">
+<!-- Background Decorative Elements -->
+<div class="absolute top-[-20%] right-[-10%] w-[500px] h-[500px] bg-primary/20 rounded-full blur-[120px] pointer-events-none"></div>
+<!-- Content Scroll Container -->
+<div class="flex-1 overflow-y-auto p-8 lg:p-12 relative z-10">
+<div class="max-w-4xl mx-auto space-y-10">
+<!-- Header -->
+<div class="flex flex-col gap-2">
+<h1 class="font-header text-4xl md:text-5xl text-white tracking-tight drop-shadow-lg">Appearance</h1>
+<p class="text-lg text-slate-400 font-light">Customize the look and feel of your browsing experience.</p>
+</div>
+<!-- Theme Mode Section -->
+<section class="glass-card rounded-2xl p-6 backdrop-blur-sm space-y-6">
+<div class="flex items-center justify-between">
+<div>
+<h2 class="text-xl font-semibold text-white">Theme Mode</h2>
+<p class="text-slate-400 text-sm mt-1">Select your preferred brightness level.</p>
+</div>
+<span class="material-symbols-outlined text-slate-500 text-3xl">dark_mode</span>
+</div>
+<div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+<!-- Light Option -->
+<label class="relative cursor-pointer group">
+<input class="peer sr-only" name="theme-mode" type="radio" value="light"/>
+<div class="h-32 rounded-xl border border-glass-border bg-[#f6f6f8] overflow-hidden relative transition-all duration-300 peer-checked:ring-2 peer-checked:ring-primary peer-checked:shadow-neon opacity-80 hover:opacity-100">
+<div class="absolute inset-x-0 top-0 h-4 bg-gray-200 border-b border-gray-300"></div>
+<div class="absolute left-2 top-6 right-2 bottom-2 bg-white rounded-lg shadow-sm border border-gray-200">
+<div class="p-3 space-y-2">
+<div class="h-2 w-1/2 bg-gray-200 rounded"></div>
+<div class="h-2 w-3/4 bg-gray-100 rounded"></div>
+</div>
+</div>
+<!-- Checkmark -->
+<div class="absolute top-2 right-2 bg-primary text-white rounded-full p-0.5 opacity-0 peer-checked:opacity-100 transition-opacity">
+<span class="material-symbols-outlined text-sm font-bold">check</span>
+</div>
+</div>
+<span class="block text-center mt-3 text-sm font-medium text-slate-400 peer-checked:text-white">Light</span>
+</label>
+<!-- Dark Option -->
+<label class="relative cursor-pointer group">
+<input checked="" class="peer sr-only" name="theme-mode" type="radio" value="dark"/>
+<div class="h-32 rounded-xl border border-glass-border bg-[#1a1f2e] overflow-hidden relative transition-all duration-300 peer-checked:ring-2 peer-checked:ring-primary peer-checked:shadow-neon opacity-80 hover:opacity-100">
+<div class="absolute inset-x-0 top-0 h-4 bg-[#0f1115] border-b border-white/10"></div>
+<div class="absolute left-2 top-6 right-2 bottom-2 bg-[#13161f] rounded-lg shadow-sm border border-white/5">
+<div class="p-3 space-y-2">
+<div class="h-2 w-1/2 bg-white/10 rounded"></div>
+<div class="h-2 w-3/4 bg-white/5 rounded"></div>
+</div>
+</div>
+<!-- Checkmark -->
+<div class="absolute top-2 right-2 bg-primary text-white rounded-full p-0.5 opacity-0 peer-checked:opacity-100 transition-opacity">
+<span class="material-symbols-outlined text-sm font-bold">check</span>
+</div>
+</div>
+<span class="block text-center mt-3 text-sm font-medium text-slate-400 peer-checked:text-white">Dark</span>
+</label>
+<!-- System Option -->
+<label class="relative cursor-pointer group">
+<input class="peer sr-only" name="theme-mode" type="radio" value="system"/>
+<div class="h-32 rounded-xl border border-glass-border bg-gradient-to-br from-[#1a1f2e] to-[#f6f6f8] overflow-hidden relative transition-all duration-300 peer-checked:ring-2 peer-checked:ring-primary peer-checked:shadow-neon opacity-80 hover:opacity-100">
+<div class="absolute inset-0 flex items-center justify-center">
+<span class="material-symbols-outlined text-4xl text-slate-400">brightness_auto</span>
+</div>
+<!-- Checkmark -->
+<div class="absolute top-2 right-2 bg-primary text-white rounded-full p-0.5 opacity-0 peer-checked:opacity-100 transition-opacity">
+<span class="material-symbols-outlined text-sm font-bold">check</span>
+</div>
+</div>
+<span class="block text-center mt-3 text-sm font-medium text-slate-400 peer-checked:text-white">System</span>
+</label>
+</div>
+</section>
+<!-- Accent Color Section -->
+<section class="glass-card rounded-2xl p-6 backdrop-blur-sm space-y-6">
+<div class="flex items-center justify-between">
+<div>
+<h2 class="text-xl font-semibold text-white">Accent Color</h2>
+<p class="text-slate-400 text-sm mt-1">Choose the primary color for buttons and highlights.</p>
+</div>
+<span class="material-symbols-outlined text-slate-500 text-3xl">colors</span>
+</div>
+<div class="flex flex-wrap gap-6">
+<!-- Neon Blue -->
+<label class="cursor-pointer group relative">
+<input checked="" class="peer sr-only" name="accent-color" type="radio" value="blue"/>
+<div class="w-16 h-16 rounded-full bg-[#135bec] shadow-[0_0_15px_rgba(19,91,236,0.4)] transition-transform peer-checked:scale-110 peer-checked:ring-4 ring-offset-4 ring-offset-[#13161f] ring-[#135bec]"></div>
+<span class="absolute -bottom-8 left-1/2 -translate-x-1/2 text-xs font-medium text-slate-400 whitespace-nowrap peer-checked:text-white">Neon Blue</span>
+</label>
+<!-- Cyber Pink -->
+<label class="cursor-pointer group relative">
+<input class="peer sr-only" name="accent-color" type="radio" value="pink"/>
+<div class="w-16 h-16 rounded-full bg-[#ec4899] shadow-[0_0_15px_rgba(236,72,153,0.4)] transition-transform peer-checked:scale-110 peer-checked:ring-4 ring-offset-4 ring-offset-[#13161f] ring-[#ec4899]"></div>
+<span class="absolute -bottom-8 left-1/2 -translate-x-1/2 text-xs font-medium text-slate-400 whitespace-nowrap peer-checked:text-white">Cyber Pink</span>
+</label>
+<!-- Emerald -->
+<label class="cursor-pointer group relative">
+<input class="peer sr-only" name="accent-color" type="radio" value="green"/>
+<div class="w-16 h-16 rounded-full bg-[#10b981] shadow-[0_0_15px_rgba(16,185,129,0.4)] transition-transform peer-checked:scale-110 peer-checked:ring-4 ring-offset-4 ring-offset-[#13161f] ring-[#10b981]"></div>
+<span class="absolute -bottom-8 left-1/2 -translate-x-1/2 text-xs font-medium text-slate-400 whitespace-nowrap peer-checked:text-white">Emerald</span>
+</label>
+<!-- Amber -->
+<label class="cursor-pointer group relative">
+<input class="peer sr-only" name="accent-color" type="radio" value="amber"/>
+<div class="w-16 h-16 rounded-full bg-[#f59e0b] shadow-[0_0_15px_rgba(245,158,11,0.4)] transition-transform peer-checked:scale-110 peer-checked:ring-4 ring-offset-4 ring-offset-[#13161f] ring-[#f59e0b]"></div>
+<span class="absolute -bottom-8 left-1/2 -translate-x-1/2 text-xs font-medium text-slate-400 whitespace-nowrap peer-checked:text-white">Amber</span>
+</label>
+</div>
+<div class="h-4"></div> <!-- Spacer for labels -->
+</section>
+<!-- Advanced UI Settings -->
+<section class="glass-card rounded-2xl p-6 backdrop-blur-sm space-y-6">
+<div class="flex items-center justify-between">
+<div>
+<h2 class="text-xl font-semibold text-white">Interface Density</h2>
+<p class="text-slate-400 text-sm mt-1">Adjust the spacing of UI elements.</p>
+</div>
+<span class="material-symbols-outlined text-slate-500 text-3xl">format_size</span>
+</div>
+<div class="relative pt-6 pb-2">
+<input class="w-full h-2 bg-slate-700 rounded-lg appearance-none cursor-pointer accent-primary" max="3" min="1" type="range" value="2"/>
+<div class="flex justify-between mt-2 text-xs text-slate-400 font-medium px-1">
+<span>Compact</span>
+<span>Comfortable</span>
+<span>Spacious</span>
+</div>
+</div>
+<div class="border-t border-glass-border my-4"></div>
+<!-- Toggles Grid -->
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+<div class="flex items-center justify-between p-3 rounded-xl bg-white/5 border border-white/5 hover:bg-white/10 transition-colors">
+<div class="flex items-center gap-3">
+<div class="p-2 rounded-lg bg-blue-500/20 text-blue-400">
+<span class="material-symbols-outlined">blur_on</span>
+</div>
+<div>
+<p class="text-white font-medium">Glassmorphism</p>
+<p class="text-xs text-slate-400">Enable transparency effects</p>
+</div>
+</div>
+<label class="relative inline-flex items-center cursor-pointer">
+<input checked="" class="sr-only peer" type="checkbox" value=""/>
+<div class="w-11 h-6 bg-slate-700 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-primary shadow-inner"></div>
+</label>
+</div>
+<div class="flex items-center justify-between p-3 rounded-xl bg-white/5 border border-white/5 hover:bg-white/10 transition-colors">
+<div class="flex items-center gap-3">
+<div class="p-2 rounded-lg bg-purple-500/20 text-purple-400">
+<span class="material-symbols-outlined">animation</span>
+</div>
+<div>
+<p class="text-white font-medium">Fluid Animations</p>
+<p class="text-xs text-slate-400">Smooth transitions</p>
+</div>
+</div>
+<label class="relative inline-flex items-center cursor-pointer">
+<input checked="" class="sr-only peer" type="checkbox" value=""/>
+<div class="w-11 h-6 bg-slate-700 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-primary shadow-inner"></div>
+</label>
+</div>
+</div>
+</section>
+<!-- Save Actions -->
+<div class="flex justify-end gap-3 pt-4">
+<button class="px-6 py-2.5 rounded-lg text-sm font-medium text-white hover:bg-white/10 transition-colors">Reset Defaults</button>
+<button class="px-8 py-2.5 rounded-lg text-sm font-medium bg-primary hover:bg-primary-light text-white shadow-lg shadow-primary/20 transition-all hover:shadow-primary/40">
+                            Save Changes
+                        </button>
+</div>
+<div class="h-10"></div> <!-- Bottom padding -->
+</div>
+</div>
+</main>
+</div>
+</body></html>

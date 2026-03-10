@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Browser Manager</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script>
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              primary: "#135bec",
+              "background-light": "#f6f6f8",
+              "background-dark": "#101622",
+            },
+            fontFamily: {
+              display: ["Inter", "sans-serif"]
+            },
+            borderRadius: {
+              DEFAULT: "0.25rem",
+              lg: "0.5rem",
+              xl: "0.75rem",
+              "2xl": "1rem",
+              full: "9999px"
+            },
+          },
+        },
+      }
+    </script>
+<style>
+        .glass-panel {
+            background: rgba(30, 41, 59, 0.4);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+        .glass-card {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            transition: all 0.2s ease-in-out;
+        }
+        .glass-card:hover {
+            background: rgba(255, 255, 255, 0.08);
+            border-color: rgba(19, 91, 236, 0.3);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+        }
+        .scrollbar-hide::-webkit-scrollbar {
+            display: none;
+        }
+        .scrollbar-hide {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+    </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark font-display text-slate-900 dark:text-slate-100 min-h-screen overflow-hidden flex flex-col">
+<!-- Top Navigation -->
+<header class="flex items-center justify-between whitespace-nowrap border-b border-solid border-slate-200 dark:border-slate-800 px-6 py-3 bg-white/50 dark:bg-background-dark/80 backdrop-blur-md z-50 sticky top-0">
+<div class="flex items-center gap-4">
+<div class="size-8 text-primary flex items-center justify-center bg-primary/10 rounded-lg">
+<span class="material-symbols-outlined text-2xl">public</span>
+</div>
+<h2 class="text-lg font-bold leading-tight tracking-tight">Nexus Browser</h2>
+</div>
+<div class="flex flex-1 justify-end gap-6 items-center">
+<nav class="hidden md:flex items-center gap-8">
+<a class="text-slate-500 dark:text-slate-400 hover:text-primary transition-colors text-sm font-medium" href="#">Dashboard</a>
+<a class="text-primary font-bold text-sm" href="#">Library</a>
+<a class="text-slate-500 dark:text-slate-400 hover:text-primary transition-colors text-sm font-medium" href="#">Extensions</a>
+</nav>
+<div class="h-6 w-px bg-slate-300 dark:bg-slate-700 mx-2"></div>
+<div class="flex gap-3">
+<button class="flex size-9 items-center justify-center rounded-lg hover:bg-slate-200 dark:hover:bg-slate-800 transition-colors text-slate-600 dark:text-slate-400">
+<span class="material-symbols-outlined text-[20px]">notifications</span>
+</button>
+<button class="flex size-9 items-center justify-center rounded-lg hover:bg-slate-200 dark:hover:bg-slate-800 transition-colors text-slate-600 dark:text-slate-400">
+<span class="material-symbols-outlined text-[20px]">settings</span>
+</button>
+<div class="bg-center bg-no-repeat bg-cover rounded-full size-9 ring-2 ring-primary/20" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuCpEeXGpWDcVoCtuUjbM2x0gtABOclqIu8eFunITT__cN7gT-ABPo43VPYLUzuA-RGaJndwCGYPFTlQgQ5jkOrhOeje3WTjbbk__fTZ85AZDY8MLaUJE6blLr6WU-laMYhgZEdVLNfFLo3jHCLYuyI3US__Ue8Lq_0NuL_94p8_4KwH96baPPgaJFWn8V-iy6KZRbyM34MzamxLBdPn-7nPFCaAe4zZOd2WhuHGqaLrZfcYqQNklUf_uhJ5mT1AyizcBlJ6MQlReA-j");'></div>
+</div>
+</div>
+</header>
+<!-- Main Content Area -->
+<main class="flex-1 flex overflow-hidden relative">
+<!-- Abstract Background Glows -->
+<div class="absolute top-[-20%] left-[-10%] w-[500px] h-[500px] bg-primary/20 rounded-full blur-[120px] pointer-events-none opacity-40"></div>
+<div class="absolute bottom-[-10%] right-[-10%] w-[600px] h-[600px] bg-purple-600/10 rounded-full blur-[100px] pointer-events-none opacity-30"></div>
+<!-- Split Layout Container -->
+<div class="w-full h-full flex flex-col md:flex-row gap-6 p-6 max-w-[1600px] mx-auto z-10">
+<!-- Left Panel: History Timeline -->
+<aside class="flex flex-col w-full md:w-[400px] lg:w-[450px] shrink-0 glass-panel rounded-2xl overflow-hidden shadow-xl shadow-black/20">
+<!-- Header -->
+<div class="p-5 border-b border-white/5 bg-white/5 backdrop-blur-sm sticky top-0 z-20">
+<div class="flex items-center justify-between mb-4">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary">history</span>
+<h3 class="text-xl font-bold text-slate-900 dark:text-white">History</h3>
+</div>
+<button class="text-xs font-medium text-slate-500 hover:text-red-400 transition-colors px-3 py-1.5 rounded-full hover:bg-white/5">
+                            Clear Data
+                        </button>
+</div>
+<!-- Search Input -->
+<div class="relative group">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-slate-500 group-focus-within:text-primary transition-colors text-xl">search</span>
+<input class="w-full bg-slate-900/50 border border-slate-700 rounded-xl py-2.5 pl-10 pr-4 text-sm text-slate-200 placeholder-slate-500 focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary transition-all" placeholder="Search visited pages..." type="text"/>
+</div>
+</div>
+<!-- Timeline List -->
+<div class="flex-1 overflow-y-auto p-2 space-y-6 custom-scrollbar">
+<!-- Group: Today -->
+<div class="px-3">
+<h4 class="text-xs font-bold text-slate-500 uppercase tracking-wider mb-3 ml-2">Today</h4>
+<div class="space-y-1">
+<!-- History Item -->
+<a class="flex items-center gap-3 p-3 rounded-xl hover:bg-white/5 group transition-colors relative" href="#">
+<div class="absolute left-0 top-1/2 -translate-y-1/2 w-1 h-8 bg-primary rounded-r-full opacity-0 group-hover:opacity-100 transition-opacity"></div>
+<div class="size-8 rounded-lg bg-slate-800 flex items-center justify-center shrink-0 border border-slate-700">
+<img alt="GitHub" class="size-5 opacity-80" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAvxERehUogBsu36-6E__bfncL2dcTW7_0i2Q1pu6RgtJoimrh3A8X8h_TWjJatI03PJNnkseaC38tmmdRwXwxa03eePSCYUXdRV4sytqBkHL78xV8UQG04qGNuo3lE4754IE0lA20G4E1ZY94QrhZ68VeLO5Tv998394XCIvW9hSdKLSfgYogq88z4VbDpvTR9_36WaLXH1lhdaT0MqwTtaBUWJuWZzHryMDb5nIztaeG6im1WJyDf7D88Cy9TuVwuaKd4syBgxTrc"/>
+</div>
+<div class="flex-1 min-w-0">
+<p class="text-sm font-medium text-slate-200 truncate group-hover:text-primary transition-colors">Merge pull request #42</p>
+<p class="text-xs text-slate-500 truncate">github.com/design-system</p>
+</div>
+<span class="text-xs text-slate-600 font-mono">10:42 AM</span>
+</a>
+<!-- History Item -->
+<a class="flex items-center gap-3 p-3 rounded-xl hover:bg-white/5 group transition-colors relative" href="#">
+<div class="absolute left-0 top-1/2 -translate-y-1/2 w-1 h-8 bg-primary rounded-r-full opacity-0 group-hover:opacity-100 transition-opacity"></div>
+<div class="size-8 rounded-lg bg-slate-800 flex items-center justify-center shrink-0 border border-slate-700">
+<img alt="Dribbble" class="size-5 opacity-80" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAby841CxXFLefJgN9NC8ccYTiWrao6Nzpd1_ZpOrd94SegPsb_yp9zv9khvG8VgedLtd4_WIyW2rz3_UG4077Hmh7gwVvs0wQWxmFuEXxBDDl_nIp4KTXAFV-gUkTy6VsdVq6mANA5e_JsOdBiLLiticSC_4wF0binuxldfWDdhq_S_YRnlF-3MQSE8T0LOXw1RwWGNxrHji4u_vddM0r3cbjWjVHR5jSaF-zgjuX8QsoPN2qPGB1w142JcRDEBIUwwOpPNFRC2VNq"/>
+</div>
+<div class="flex-1 min-w-0">
+<p class="text-sm font-medium text-slate-200 truncate group-hover:text-primary transition-colors">Mobile UI Inspiration</p>
+<p class="text-xs text-slate-500 truncate">dribbble.com/shots</p>
+</div>
+<span class="text-xs text-slate-600 font-mono">10:15 AM</span>
+</a>
+<!-- History Item -->
+<a class="flex items-center gap-3 p-3 rounded-xl hover:bg-white/5 group transition-colors relative" href="#">
+<div class="absolute left-0 top-1/2 -translate-y-1/2 w-1 h-8 bg-primary rounded-r-full opacity-0 group-hover:opacity-100 transition-opacity"></div>
+<div class="size-8 rounded-lg bg-slate-800 flex items-center justify-center shrink-0 border border-slate-700">
+<img alt="Figma" class="size-5 opacity-80" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBLYQfu9Q5VEQcpDpSDz9q9-bzpVH-giddwAqfyPV6DmHj6ArT4zo14iYE5ZQGVi5EEm_TJreydnvjhsJUwyoGTO9WAMjLtQeCbTAkKnwVBFdH4aQZYU-c10frQv-v64CPs_O_MmYP4RxzSqnbn_MUfRq9om9CwPKi4j_6l86tqnto0D8dJ1PoWXcOvErW6cbL3ZIfsFSGMxkc7mgYy4ktgO2RFK4KQcND-Kso-GpRrLMTkTj_X6IGrv5WiMaMn7_4KDulHcf0XANsy"/>
+</div>
+<div class="flex-1 min-w-0">
+<p class="text-sm font-medium text-slate-200 truncate group-hover:text-primary transition-colors">Project Alpha - Design File</p>
+<p class="text-xs text-slate-500 truncate">figma.com/file/...</p>
+</div>
+<span class="text-xs text-slate-600 font-mono">09:30 AM</span>
+</a>
+</div>
+</div>
+<!-- Group: Yesterday -->
+<div class="px-3">
+<h4 class="text-xs font-bold text-slate-500 uppercase tracking-wider mb-3 ml-2">Yesterday</h4>
+<div class="space-y-1">
+<!-- History Item -->
+<a class="flex items-center gap-3 p-3 rounded-xl hover:bg-white/5 group transition-colors relative" href="#">
+<div class="absolute left-0 top-1/2 -translate-y-1/2 w-1 h-8 bg-primary rounded-r-full opacity-0 group-hover:opacity-100 transition-opacity"></div>
+<div class="size-8 rounded-lg bg-slate-800 flex items-center justify-center shrink-0 border border-slate-700">
+<span class="material-symbols-outlined text-slate-400 text-lg">article</span>
+</div>
+<div class="flex-1 min-w-0">
+<p class="text-sm font-medium text-slate-200 truncate group-hover:text-primary transition-colors">Understanding CSS Grid</p>
+<p class="text-xs text-slate-500 truncate">css-tricks.com</p>
+</div>
+<span class="text-xs text-slate-600 font-mono">4:20 PM</span>
+</a>
+<!-- History Item -->
+<a class="flex items-center gap-3 p-3 rounded-xl hover:bg-white/5 group transition-colors relative" href="#">
+<div class="absolute left-0 top-1/2 -translate-y-1/2 w-1 h-8 bg-primary rounded-r-full opacity-0 group-hover:opacity-100 transition-opacity"></div>
+<div class="size-8 rounded-lg bg-slate-800 flex items-center justify-center shrink-0 border border-slate-700">
+<img alt="YouTube" class="size-5 opacity-80" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAoVJEEYPmfirajJY7y4jfApvKxCzVJivxTy_Ej3ml_Fh6RSSiTmjxvkVcyOxjOwvVxIYHZ8P0BRSAl_PxeCtOydlOPiqWkdK4--ZZP5dDllkhi3BADEPT3i1tfeEXaXzXeQSd0LiqgWeiDBMOrn8Q4Ig6gyVBqID_1wU5W6c5XgjiVm4jeFglMCyf3JR5hRm7QDK3A6R-r0ujHwr0EeM3ywda7qDsLufQGlqj044B0GdQsED_OBYNCjbU7Ng9LdqsSca_exa0AMrv-"/>
+</div>
+<div class="flex-1 min-w-0">
+<p class="text-sm font-medium text-slate-200 truncate group-hover:text-primary transition-colors">Lo-Fi Hip Hop Radio - Beats to Relax/Study to</p>
+<p class="text-xs text-slate-500 truncate">youtube.com</p>
+</div>
+<span class="text-xs text-slate-600 font-mono">2:00 PM</span>
+</a>
+</div>
+</div>
+</div>
+</aside>
+<!-- Right Panel: Bookmarks Grid -->
+<section class="flex-1 flex flex-col glass-panel rounded-2xl overflow-hidden shadow-xl shadow-black/20">
+<!-- Header & Filters -->
+<div class="p-6 border-b border-white/5 bg-white/5 backdrop-blur-sm sticky top-0 z-20 flex flex-col gap-4">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary">bookmarks</span>
+<h3 class="text-xl font-bold text-slate-900 dark:text-white">Bookmarks</h3>
+</div>
+<div class="flex gap-2">
+<button class="flex items-center gap-2 px-4 py-2 bg-primary hover:bg-blue-600 text-white text-sm font-semibold rounded-lg transition-all shadow-lg shadow-primary/20">
+<span class="material-symbols-outlined text-[18px]">add</span>
+                                Add New
+                            </button>
+</div>
+</div>
+<!-- Tags / Folders -->
+<div class="flex items-center gap-2 overflow-x-auto scrollbar-hide pb-1">
+<button class="px-4 py-1.5 rounded-full bg-primary/20 text-primary border border-primary/30 text-sm font-medium whitespace-nowrap">All Bookmarks</button>
+<button class="px-4 py-1.5 rounded-full bg-slate-800/50 hover:bg-slate-800 text-slate-400 hover:text-white border border-slate-700/50 text-sm font-medium transition-colors whitespace-nowrap">Design Resources</button>
+<button class="px-4 py-1.5 rounded-full bg-slate-800/50 hover:bg-slate-800 text-slate-400 hover:text-white border border-slate-700/50 text-sm font-medium transition-colors whitespace-nowrap">Development</button>
+<button class="px-4 py-1.5 rounded-full bg-slate-800/50 hover:bg-slate-800 text-slate-400 hover:text-white border border-slate-700/50 text-sm font-medium transition-colors whitespace-nowrap">Reading List</button>
+<button class="px-4 py-1.5 rounded-full bg-slate-800/50 hover:bg-slate-800 text-slate-400 hover:text-white border border-slate-700/50 text-sm font-medium transition-colors whitespace-nowrap">Entertainment</button>
+</div>
+</div>
+<!-- Grid Content -->
+<div class="flex-1 overflow-y-auto p-6 bg-gradient-to-br from-transparent to-black/20">
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
+<!-- Bookmark Card 1 -->
+<div class="glass-card group rounded-xl p-4 flex flex-col gap-3 relative cursor-pointer">
+<div class="absolute top-3 right-3 opacity-0 group-hover:opacity-100 transition-opacity">
+<button class="text-slate-400 hover:text-white p-1 rounded hover:bg-white/10">
+<span class="material-symbols-outlined text-[18px]">more_horiz</span>
+</button>
+</div>
+<div class="h-32 rounded-lg bg-slate-800 w-full overflow-hidden border border-slate-700 relative">
+<!-- Placeholder for site preview -->
+<div class="w-full h-full bg-gradient-to-tr from-purple-900 to-indigo-900 flex items-center justify-center">
+<span class="material-symbols-outlined text-4xl text-white/20">image</span>
+</div>
+<div class="absolute bottom-2 left-2 size-8 bg-black/50 backdrop-blur rounded-md p-1 border border-white/10">
+<img alt="Dribbble Icon" class="w-full h-full object-contain" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBkUlX51DSSWqlteFx4qwVco6J66K-KQjJTy0FPUiIV72rEEke6vmNFf02lRPbqpA-rrXZXWSUGGAF4pnS2cwE1RoK49T-ElSC94yTmVYaupSNf8tRnwbfZWNK5zh7E3cwtVVl9k7aZGJ5XZKun1JRnObAS2gqxIwE6BVwAiKs3Qg24BvhQqHsJFDRS2iWlV3oJ_aRYiEKr2XdX6uZON9ZCl4Zv6WhRgv4QSmdCOk47yWre9eGwaqWx1xTA9YQqHo5LmmXiFpk15b_j"/>
+</div>
+</div>
+<div>
+<h4 class="font-semibold text-slate-200 truncate pr-6 group-hover:text-primary transition-colors">Dribbble - Popular</h4>
+<p class="text-xs text-slate-500 truncate">dribbble.com</p>
+</div>
+</div>
+<!-- Bookmark Card 2 -->
+<div class="glass-card group rounded-xl p-4 flex flex-col gap-3 relative cursor-pointer">
+<div class="absolute top-3 right-3 opacity-0 group-hover:opacity-100 transition-opacity">
+<button class="text-slate-400 hover:text-white p-1 rounded hover:bg-white/10">
+<span class="material-symbols-outlined text-[18px]">more_horiz</span>
+</button>
+</div>
+<div class="h-32 rounded-lg bg-slate-800 w-full overflow-hidden border border-slate-700 relative">
+<div class="w-full h-full bg-gradient-to-tr from-gray-900 to-slate-800 flex items-center justify-center">
+<span class="material-symbols-outlined text-4xl text-white/20">code</span>
+</div>
+<div class="absolute bottom-2 left-2 size-8 bg-black/50 backdrop-blur rounded-md p-1 border border-white/10">
+<img alt="Github Icon" class="w-full h-full object-contain" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCp2_zaMVJFJLh4IMzBgXUHsR8nReq5Sod7YiOSu2xxYiPhOmRgIWmekEC_NrPqpDs_os5NLGTIXZx6ds-jGcahr7lLUrKFdxOBNFBHytaEje_1X1czQ5iAaOT3oFKjbIrg-Vc831qrUopErfj1Jf_vt6nlekH6bPE-mN6-T-p4GGwxNP3aLG3Ow8J-HIwptGkg2oKQ8bDBRbQhyTiR_ERov7kVHqCGQwKJkrvnUkQky6idPTI8C5oBR0M-usij8cP5MCGMuwztoHzt"/>
+</div>
+</div>
+<div>
+<h4 class="font-semibold text-slate-200 truncate pr-6 group-hover:text-primary transition-colors">GitHub Dashboard</h4>
+<p class="text-xs text-slate-500 truncate">github.com</p>
+</div>
+</div>
+<!-- Bookmark Card 3 -->
+<div class="glass-card group rounded-xl p-4 flex flex-col gap-3 relative cursor-pointer">
+<div class="absolute top-3 right-3 opacity-0 group-hover:opacity-100 transition-opacity">
+<button class="text-slate-400 hover:text-white p-1 rounded hover:bg-white/10">
+<span class="material-symbols-outlined text-[18px]">more_horiz</span>
+</button>
+</div>
+<div class="h-32 rounded-lg bg-slate-800 w-full overflow-hidden border border-slate-700 relative">
+<div class="w-full h-full bg-gradient-to-tr from-orange-900 to-red-900 flex items-center justify-center">
+<span class="material-symbols-outlined text-4xl text-white/20">play_arrow</span>
+</div>
+<div class="absolute bottom-2 left-2 size-8 bg-black/50 backdrop-blur rounded-md p-1 border border-white/10">
+<img alt="Youtube Icon" class="w-full h-full object-contain" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCt1Mum2WqeHWPKXK7Zmi8u5tIaVSJYoDJ-WSCVRV1cRiV_I1shZeQpppbj_SSRbYzwCDcKkaMhabBuj0AKBgL1l0l6-rF4KAI5mBAe6dDK_jfmueYKtCihrYshn5XA4hLCURGeXGR2gzSUPrk-A4EwXstP8ohHD53HYADzMrabVygi0c3Wflm_13FKpyYFfNRjSxpgFmJeXdqPlKMdNDTiTbBTtcXLZXvqNmrTmgh897m6kAl8g_CF09roVLBN8bBDuMMeMN9JWIhG"/>
+</div>
+</div>
+<div>
+<h4 class="font-semibold text-slate-200 truncate pr-6 group-hover:text-primary transition-colors">Watch Later</h4>
+<p class="text-xs text-slate-500 truncate">youtube.com/playlist</p>
+</div>
+</div>
+<!-- Bookmark Card 4 -->
+<div class="glass-card group rounded-xl p-4 flex flex-col gap-3 relative cursor-pointer">
+<div class="absolute top-3 right-3 opacity-0 group-hover:opacity-100 transition-opacity">
+<button class="text-slate-400 hover:text-white p-1 rounded hover:bg-white/10">
+<span class="material-symbols-outlined text-[18px]">more_horiz</span>
+</button>
+</div>
+<div class="h-32 rounded-lg bg-slate-800 w-full overflow-hidden border border-slate-700 relative">
+<div class="w-full h-full bg-gradient-to-tr from-blue-900 to-cyan-900 flex items-center justify-center">
+<span class="material-symbols-outlined text-4xl text-white/20">palette</span>
+</div>
+<div class="absolute bottom-2 left-2 size-8 bg-black/50 backdrop-blur rounded-md p-1 border border-white/10">
+<img alt="Awwwards Icon" class="w-full h-full object-contain" src="https://lh3.googleusercontent.com/aida-public/AB6AXuALDHsElVIh1Uzv_Nx5H6_kw5eMXHqR2pKuEn76NRjiCrFg7NWGbcsVnS-ZU93LgYjrnHYLf2dDdfUMj-IadwrHM8BxEwkWtFIF9cHlqszblibsE5HCg4SzPfEpWKNF4muPGST8kVU8bCM74VNKL0TG-JLMGaLjvtRJmsmA-Wl7FUNhzQRU9g2DI51nDQ9rDTEedA6x0vAjDdfu6TBEI1tFJThQzSbvxi-wr_yD4W7R4zaY5ihmH9B1gZ83zr1V1YPXmLGQK0kdAv-2"/>
+</div>
+</div>
+<div>
+<h4 class="font-semibold text-slate-200 truncate pr-6 group-hover:text-primary transition-colors">Awwwards - Winners</h4>
+<p class="text-xs text-slate-500 truncate">awwwards.com</p>
+</div>
+</div>
+<!-- Bookmark Card 5 -->
+<div class="glass-card group rounded-xl p-4 flex flex-col gap-3 relative cursor-pointer">
+<div class="absolute top-3 right-3 opacity-0 group-hover:opacity-100 transition-opacity">
+<button class="text-slate-400 hover:text-white p-1 rounded hover:bg-white/10">
+<span class="material-symbols-outlined text-[18px]">more_horiz</span>
+</button>
+</div>
+<div class="h-32 rounded-lg bg-slate-800 w-full overflow-hidden border border-slate-700 relative">
+<div class="w-full h-full bg-gradient-to-tr from-green-900 to-emerald-900 flex items-center justify-center">
+<span class="material-symbols-outlined text-4xl text-white/20">terminal</span>
+</div>
+<div class="absolute bottom-2 left-2 size-8 bg-black/50 backdrop-blur rounded-md p-1 border border-white/10">
+<img alt="Tailwind Icon" class="w-full h-full object-contain" src="https://lh3.googleusercontent.com/aida-public/AB6AXuATPdgZsatKmlR2eeipE2hlaWCzDDJ3bLwdtMT7LmNE5O2Rtv9ZNyBnaqo2bFuq0R4UGswAroiG9bPpwnRLz5GzODGCGCBr25L335voQLoIDAMEPaVxweq2prWym088IPaak498URQ5rXwQve8zSx9USSCs__O_n3JyJTYi8CUZv0PkCdpMgVGdN3vZTC3mCW1vF43ORyccOiQMc6ttUSa0Z7-Oz26ASCv06mX3wW9OT-vbi-HpI8Jht3CjrZdvOusq6qQNJXZU-xQd"/>
+</div>
+</div>
+<div>
+<h4 class="font-semibold text-slate-200 truncate pr-6 group-hover:text-primary transition-colors">Tailwind CSS Docs</h4>
+<p class="text-xs text-slate-500 truncate">tailwindcss.com</p>
+</div>
+</div>
+<!-- Bookmark Card Add New -->
+<div class="rounded-xl p-4 flex flex-col items-center justify-center gap-3 relative cursor-pointer border border-dashed border-slate-700 hover:border-primary/50 hover:bg-primary/5 transition-colors group">
+<div class="size-12 rounded-full bg-slate-800 group-hover:bg-primary/20 flex items-center justify-center transition-colors">
+<span class="material-symbols-outlined text-slate-400 group-hover:text-primary">add</span>
+</div>
+<p class="text-sm font-medium text-slate-500 group-hover:text-primary transition-colors">Add Bookmark</p>
+</div>
+</div>
+</div>
+</section>
+</div>
+</main>
+</body></html>
