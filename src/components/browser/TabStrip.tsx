@@ -1,29 +1,24 @@
 'use client';
 
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { useBrowserStore } from '@/stores/browserStore';
 
 export default function TabStrip() {
     const { tabs, activeTabId, openTab, closeTab, setActiveTab } = useBrowserStore();
+    const [isElectron, setIsElectron] = useState(false);
+
+    // Detect Electron only after mount so server and initial client render match
+    useEffect(() => {
+        setIsElectron(!!window.browserAPI);
+    }, []);
 
     const handleCloseTab = (e: React.MouseEvent, tabId: string) => {
         e.stopPropagation();
         closeTab(tabId);
     };
-
-    const handleCloseWindow = () => {
-        window.browserAPI?.closeWindow();
-    };
-
-    const handleMinimizeWindow = () => {
-        window.browserAPI?.minimizeWindow();
-    };
-
-    const handleMaximizeWindow = () => {
-        window.browserAPI?.maximizeWindow();
-    };
-
-    const isElectron = typeof window !== 'undefined' && !!window.browserAPI;
+    const handleCloseWindow = () => window.browserAPI?.closeWindow();
+    const handleMinimizeWindow = () => window.browserAPI?.minimizeWindow();
+    const handleMaximizeWindow = () => window.browserAPI?.maximizeWindow();
 
     return (
         <div className="flex items-end px-2 pt-2 gap-2 select-none drag" style={{ height: '40px' }}>

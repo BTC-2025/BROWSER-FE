@@ -6,6 +6,7 @@ import { useAICopilotStore } from '@/stores/aiCopilotStore';
 import { useAgentRuntimeStore } from '@/stores/agentRuntimeStore';
 import { useMemorySecurityStore } from '@/stores/memorySecurityStore';
 import { useSettingsStore, searchEngineUrls } from '@/stores/settingsStore';
+import BrowserMenu from './BrowserMenu';
 
 export default function NavigationBar() {
     const { tabs, activeTabId, goBack, goForward, reload, navigateToUrl } = useBrowserStore();
@@ -17,7 +18,9 @@ export default function NavigationBar() {
     const isNotesOpen = useMemorySecurityStore((s) => s.isNotePanelOpen);
     const [inputValue, setInputValue] = useState('');
     const [isFocused, setIsFocused] = useState(false);
+    const [isMenuOpen, setIsMenuOpen] = useState(false);
     const inputRef = useRef<HTMLInputElement>(null);
+    const menuButtonRef = useRef<HTMLButtonElement>(null);
     const searchEngine = useSettingsStore((s) => s.searchEngine);
     const accentColor = useSettingsStore((s) => s.accentColor);
 
@@ -219,9 +222,21 @@ export default function NavigationBar() {
                     <span>Sign In</span>
                 </button>
 
-                <button className="p-1.5 hover:bg-[#282e39] rounded-lg text-slate-400 hover:text-white transition-colors">
-                    <span className="material-symbols-outlined text-[20px]">more_vert</span>
-                </button>
+                <div className="relative">
+                    <button
+                        ref={menuButtonRef}
+                        onClick={() => setIsMenuOpen((o) => !o)}
+                        className={`p-1.5 rounded-lg transition-colors ${
+                            isMenuOpen
+                                ? 'bg-[#282e39] text-white'
+                                : 'hover:bg-[#282e39] text-slate-400 hover:text-white'
+                        }`}
+                        title="Browser menu"
+                    >
+                        <span className="material-symbols-outlined text-[20px]">more_vert</span>
+                    </button>
+                    <BrowserMenu isOpen={isMenuOpen} onClose={() => setIsMenuOpen(false)} triggerRef={menuButtonRef} />
+                </div>
             </div>
         </div>
     );

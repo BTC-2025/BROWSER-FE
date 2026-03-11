@@ -115,18 +115,16 @@ export default function AgentPanel() {
         await startTask(task);
     };
 
-    if (!isOpen) return null;
-
     const pendingApprovals = currentTask?.steps.filter((s) => s.status === 'pending' && s.requiresApproval).length || 0;
     const completedSteps = currentTask?.steps.filter((s) => s.status === 'completed').length || 0;
     const totalSteps = currentTask?.steps.length || 0;
 
     return (
         <div
-            className="flex flex-col h-full border-l border-white/5 shadow-2xl shadow-black/40 z-40 animate-fadeIn"
+            className="flex flex-col h-full border-l border-white/5 shadow-2xl shadow-black/40 animate-fadeIn"
             style={{
-                width: '420px',
-                background: 'rgba(15, 17, 21, 0.95)',
+                width: 'clamp(280px, 32vw, 440px)',
+                background: 'rgba(15, 17, 21, 0.97)',
                 backdropFilter: 'blur(20px)',
             }}
         >

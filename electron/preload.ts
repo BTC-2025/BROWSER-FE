@@ -46,6 +46,16 @@ contextBridge.exposeInMainWorld('browserAPI', {
     maximizeWindow: () => ipcRenderer.invoke('window:maximize'),
     closeWindow: () => ipcRenderer.invoke('window:close'),
 
+    // --- Zoom ---
+    setZoom: (factor: number) => ipcRenderer.invoke('core:setZoom', factor),
+
+    // --- Find in Page ---
+    findInPage: (text: string) => ipcRenderer.invoke('core:findInPage', text),
+    stopFindInPage: () => ipcRenderer.invoke('core:stopFindInPage'),
+
+    // --- Print ---
+    print: () => ipcRenderer.invoke('core:print'),
+
     // --- AI Copilot Intents (Phase 3) ---
     requestSummary: (tabId: string) => ipcRenderer.invoke('ai:requestSummary', tabId),
     chatAboutPage: (tabId: string, query: string) => ipcRenderer.invoke('ai:chatAboutPage', tabId, query),

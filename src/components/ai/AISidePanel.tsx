@@ -42,14 +42,12 @@ export default function AISidePanel() {
         await sendMessage(msg);
     };
 
-    if (!isOpen) return null;
-
     return (
         <div
-            className="flex flex-col h-full border-l border-white/5 shadow-2xl shadow-black/40 z-40 animate-fadeIn"
+            className="flex flex-col h-full border-l border-white/5 shadow-2xl shadow-black/40 animate-fadeIn"
             style={{
-                width: '380px',
-                background: 'rgba(15, 17, 21, 0.95)',
+                width: 'clamp(280px, 30vw, 400px)',
+                background: 'rgba(15, 17, 21, 0.97)',
                 backdropFilter: 'blur(20px)',
             }}
         >
@@ -86,8 +84,8 @@ export default function AISidePanel() {
                 <button
                     onClick={() => setMode('chat')}
                     className={`flex-1 flex items-center justify-center gap-2 py-3 text-xs font-medium transition-colors ${activeMode === 'chat'
-                            ? 'text-[#135bec] border-b-2 border-[#135bec]'
-                            : 'text-slate-400 hover:text-white'
+                        ? 'text-[#135bec] border-b-2 border-[#135bec]'
+                        : 'text-slate-400 hover:text-white'
                         }`}
                 >
                     <span className="material-symbols-outlined text-[16px]">chat</span>
@@ -96,8 +94,8 @@ export default function AISidePanel() {
                 <button
                     onClick={() => { setMode('summary'); summarizePage(); }}
                     className={`flex-1 flex items-center justify-center gap-2 py-3 text-xs font-medium transition-colors ${activeMode === 'summary'
-                            ? 'text-[#135bec] border-b-2 border-[#135bec]'
-                            : 'text-slate-400 hover:text-white'
+                        ? 'text-[#135bec] border-b-2 border-[#135bec]'
+                        : 'text-slate-400 hover:text-white'
                         }`}
                 >
                     <span className="material-symbols-outlined text-[16px]">summarize</span>
@@ -152,8 +150,8 @@ export default function AISidePanel() {
                                 )}
                                 <div
                                     className={`max-w-[85%] px-4 py-3 rounded-2xl text-sm leading-relaxed ${msg.role === 'user'
-                                            ? 'bg-[#135bec] text-white rounded-br-md'
-                                            : 'bg-white/5 text-slate-200 border border-white/5 rounded-bl-md'
+                                        ? 'bg-[#135bec] text-white rounded-br-md'
+                                        : 'bg-white/5 text-slate-200 border border-white/5 rounded-bl-md'
                                         }`}
                                     style={{ whiteSpace: 'pre-wrap' }}
                                     dangerouslySetInnerHTML={{
@@ -204,7 +202,7 @@ export default function AISidePanel() {
                                             {summary.readingTime} read
                                         </span>
                                         <span className={`flex items-center gap-1 text-xs ${summary.sentiment === 'positive' ? 'text-green-400' :
-                                                summary.sentiment === 'negative' ? 'text-red-400' : 'text-slate-400'
+                                            summary.sentiment === 'negative' ? 'text-red-400' : 'text-slate-400'
                                             }`}>
                                             <span className="material-symbols-outlined text-[14px]">
                                                 {summary.sentiment === 'positive' ? 'sentiment_satisfied' :

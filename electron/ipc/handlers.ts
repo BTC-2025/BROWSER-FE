@@ -5,7 +5,12 @@
 import { ipcMain, BaseWindow, WebContentsView } from 'electron';
 import { CompositionRoot } from '../di/CompositionRoot';
 
-export function registerIpcHandlers(container: CompositionRoot, mainWindow: BaseWindow, chromeView: WebContentsView): void {
+export function registerIpcHandlers(
+    container: CompositionRoot,
+    mainWindow: BaseWindow,
+    chromeView: WebContentsView,
+    onBoundsUpdate?: (bounds: { x: number; y: number; width: number; height: number }) => void
+): void {
     const engine = container.getEngine();
 
     // --- Browser Core ---
@@ -49,6 +54,52 @@ export function registerIpcHandlers(container: CompositionRoot, mainWindow: Base
 
     ipcMain.handle('core:updateBounds', async (_event, bounds: { x: number; y: number; width: number; height: number }) => {
         engine.updateBounds(bounds);
+        onBoundsUpdate?.(bounds);
+    });
+
+    // --- Zoom ---
+    ipcMain.handle('core:setZoom', async (_event, factor: number) => {
+        const activeId = engine.getActiveTabId();
+        if (!activeId) return;
+        const tab = engine.getTabState(activeId);
+        if (!tab) return;
+        // Access the view's webContents
+        const wc = (engine as any).tabs?.get(activeId)?.view?.webContents;
+        if (wc && !wc.isDestroyed()) {
+            wc.setZoomFactor(factor / 100);
+        }
+    });
+
+    // --- Find in Page ---
+    ipcMain.handle('core:findInPage', async (_event, text: string) => {
+        const activeId = engine.getActiveTabId();
+        if (!activeId) return;
+        const wc = (engine as any).tabs?.get(activeId)?.view?.webContents;
+        if (wc && !wc.isDestroyed()) {
+            wc.findInPage(text || ' ');
+        }
+    });
+
+    ipcMain.handle('core:stopFindInPage', async () => {
+        const activeId = engine.getActiveTabId();
+        if (!activeId) return;
+        const wc = (engine as any).tabs?.get(activeId)?.view?.webContents;
+        if (wc && !wc.isDestroyed()) {
+            wc.stopFindInPage('clearSelection');
+        }
+    });
+
+    // --- Print ---
+    ipcMain.handle('core:print', async () => {
+        const activeId = engine.getActiveTabId();
+        if (!activeId) return;
+        const wc = (engine as any).tabs?.get(activeId)?.view?.webContents;
+        if (wc && !wc.isDestroyed()) {
+            wc.print();
+        } else {
+            // Fallback to chrome view print
+            chromeView.webContents.print();
+        }
     });
 
     // --- State Change Broadcasting ---

@@ -7,8 +7,13 @@ import * as path from 'path';
 import { CompositionRoot } from './di/CompositionRoot';
 import { registerIpcHandlers } from './ipc/handlers';
 
-// Height of the browser chrome (tabs + navigation bar) in pixels
+// Height of the browser chrome (tabs + navigation bar) in pixels.
+// Used only as the initial fallback — HeaderBar reports the real height dynamically via IPC.
 const CHROME_HEIGHT = 82;
+
+// Tracks the most recently reported chrome height from the React UI.
+// Updated when core:updateBounds is called from HeaderBar's ResizeObserver.
+let currentChromeHeight = CHROME_HEIGHT;
 
 let mainWindow: BaseWindow | null = null;
 let chromeView: WebContentsView | null = null;
@@ -56,7 +61,10 @@ function createWindow(): void {
 
     // Initialize Hexagonal Architecture with BaseWindow
     container = new CompositionRoot(mainWindow);
-    registerIpcHandlers(container, mainWindow, chromeView);
+    registerIpcHandlers(container, mainWindow, chromeView, (bounds) => {
+        // Keep currentChromeHeight in sync for window resize events
+        currentChromeHeight = bounds.y;
+    });
 
     // Register window control IPC handlers
     ipcMain.handle('window:minimize', () => {
@@ -111,12 +119,12 @@ function createWindow(): void {
             // Chrome UI always covers full window
             chromeView.setBounds({ x: 0, y: 0, width: winWidth, height: winHeight });
 
-            // Update web content view bounds
+            // Use the dynamically reported chrome height (set by HeaderBar ResizeObserver)
             container.getEngine().updateBounds({
                 x: 0,
-                y: CHROME_HEIGHT,
+                y: currentChromeHeight,
                 width: winWidth,
-                height: winHeight - CHROME_HEIGHT,
+                height: winHeight - currentChromeHeight,
             });
         }
     });
@@ -146,9 +154,14 @@ app.on('window-all-closed', () => {
     }
 });
 
-// Security: Prevent new webview creation globally
+// Security: Deny popups only for the chrome UI view.
+// Tab WebContentsViews handle window.open themselves via setWindowOpenHandler in ElectronBrowserEngine.
 app.on('web-contents-created', (_event, contents) => {
-    contents.setWindowOpenHandler(() => {
-        return { action: 'deny' };
-    });
+    // Only apply the blanket deny to the chrome UI (Next.js view).
+    // Tab views register their own handler in setupViewListeners.
+    if (chromeView && contents === chromeView.webContents) {
+        contents.setWindowOpenHandler(() => {
+            return { action: 'deny' };
+        });
+    }
 });

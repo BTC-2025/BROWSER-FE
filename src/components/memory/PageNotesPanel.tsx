@@ -94,8 +94,6 @@ export default function PageNotesPanel() {
     const [searchQuery, setSearchQuery] = useState('');
     const [showAddForm, setShowAddForm] = useState(false);
 
-    if (!isNotePanelOpen) return null;
-
     const filteredNotes = searchQuery
         ? notes.filter((n) =>
             n.note.toLowerCase().includes(searchQuery.toLowerCase()) ||
@@ -115,8 +113,8 @@ export default function PageNotesPanel() {
 
     return (
         <div
-            className="flex flex-col h-full border-l border-white/5 shadow-2xl shadow-black/40 z-40 animate-fadeIn"
-            style={{ width: '360px', background: 'rgba(15, 17, 21, 0.95)', backdropFilter: 'blur(20px)' }}
+            className="flex flex-col h-full border-l border-white/5 shadow-2xl shadow-black/40 animate-fadeIn"
+            style={{ width: 'clamp(260px, 28vw, 380px)', background: 'rgba(15, 17, 21, 0.97)', backdropFilter: 'blur(20px)' }}
         >
             {/* Header */}
             <div className="flex items-center justify-between p-4 border-b border-white/5">
@@ -203,3 +201,4 @@ export default function PageNotesPanel() {
         </div>
     );
 }
+

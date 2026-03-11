@@ -24,11 +24,28 @@ export default function BrowserPage() {
     return (
         <div className="h-screen flex flex-col overflow-hidden" style={{ background: '#101622' }}>
             <HeaderBar />
-            <div className="flex-1 flex overflow-hidden">
-                <WebViewContainer />
-                {isAIOpen && <AISidePanel />}
-                {isAgentOpen && <AgentPanel />}
-                {isNotesOpen && <PageNotesPanel />}
+            <div className="flex-1 flex overflow-hidden relative">
+                <div className="flex-1 min-w-0 overflow-hidden">
+                    <WebViewContainer />
+                </div>
+                {/* Side panels — absolutely positioned so they overlay without displacing WebView */}
+                <div className="absolute top-0 right-0 bottom-0 flex pointer-events-none" style={{ zIndex: 50 }}>
+                    {isAIOpen && (
+                        <div className="pointer-events-auto h-full">
+                            <AISidePanel />
+                        </div>
+                    )}
+                    {isAgentOpen && (
+                        <div className="pointer-events-auto h-full">
+                            <AgentPanel />
+                        </div>
+                    )}
+                    {isNotesOpen && (
+                        <div className="pointer-events-auto h-full">
+                            <PageNotesPanel />
+                        </div>
+                    )}
+                </div>
             </div>
         </div>
     );

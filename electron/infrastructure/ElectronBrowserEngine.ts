@@ -293,6 +293,16 @@ export class ElectronBrowserEngine implements IBrowserEngine {
     private setupViewListeners(tabId: string, view: WebContentsView): void {
         const wc = view.webContents;
 
+        // Handle target="_blank" links and window.open() calls — open in a new tab
+        wc.setWindowOpenHandler(({ url }) => {
+            if (url && url !== 'about:blank') {
+                // Open in a new tab inside our browser
+                this.createTab(url);
+            }
+            // Always deny the native popup — we handle it ourselves above
+            return { action: 'deny' };
+        });
+
         wc.on('did-start-loading', () => {
             const entry = this.tabs.get(tabId);
             if (entry) {
