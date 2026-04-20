@@ -26,7 +26,7 @@ interface SettingsState {
 
 const initialState = {
     themeMode: 'dark' as const,
-    accentColor: '#135bec', // Neon Blue
+    accentColor: '#004AAD', // Neon Blue
     density: 2,
     glassmorphism: true,
     animations: true,
@@ -56,7 +56,7 @@ export const useSettingsStore = create<SettingsState>()(
             resetToDefaults: () => set(initialState),
         }),
         {
-            name: 'nexus-settings-storage',
+            name: 'dive-settings-storage',
             storage: createJSONStorage(() => localStorage),
         }
     )

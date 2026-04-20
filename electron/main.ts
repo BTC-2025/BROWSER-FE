@@ -45,6 +45,11 @@ function createWindow(): void {
             webviewTag: false,
         },
     });
+    chromeView.setBackgroundColor('rgba(0, 0, 0, 0)'); // Transparent background
+
+    chromeView.webContents.on('did-finish-load', () => {
+        chromeView?.webContents.insertCSS('html, body { background-color: transparent !important; }');
+    });
 
     // Add chromeView as the first child — it covers the full window
     mainWindow.contentView.addChildView(chromeView);
@@ -60,7 +65,7 @@ function createWindow(): void {
     }
 
     // Initialize Hexagonal Architecture with BaseWindow
-    container = new CompositionRoot(mainWindow);
+    container = new CompositionRoot(mainWindow, chromeView);
     registerIpcHandlers(container, mainWindow, chromeView, (bounds) => {
         // Keep currentChromeHeight in sync for window resize events
         currentChromeHeight = bounds.y;
@@ -157,6 +162,27 @@ app.on('window-all-closed', () => {
 // Security: Deny popups only for the chrome UI view.
 // Tab WebContentsViews handle window.open themselves via setWindowOpenHandler in ElectronBrowserEngine.
 app.on('web-contents-created', (_event, contents) => {
+    // Global shortcut intercept for DevTools
+    contents.on('before-input-event', (event, input) => {
+        // F12 or Cmd+Option+I (Mac) / Ctrl+Shift+I (Windows)
+        const isF12 = input.key === 'F12';
+        const isCmdOptI = input.meta && input.alt && input.key.toLowerCase() === 'i';
+        const isCtrlShiftI = input.control && input.shift && input.key.toLowerCase() === 'i';
+
+        if ((isF12 || isCmdOptI || isCtrlShiftI) && input.type === 'keyDown') {
+            const activeId = container?.getEngine()?.getActiveTabId();
+            if (activeId) {
+                const activeView = (container?.getEngine() as any)?.tabs?.get(activeId)?.view;
+                if (activeView && !activeView.webContents.isDestroyed()) {
+                    activeView.webContents.openDevTools({ mode: 'right' });
+                }
+            } else {
+                contents.openDevTools({ mode: 'right' });
+            }
+            event.preventDefault();
+        }
+    });
+
     // Only apply the blanket deny to the chrome UI (Next.js view).
     // Tab views register their own handler in setupViewListeners.
     if (chromeView && contents === chromeView.webContents) {

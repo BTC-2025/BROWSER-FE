@@ -6,50 +6,41 @@ import { useSettingsStore, searchEngineUrls } from '@/stores/settingsStore';
 
 // Quick link data
 const quickLinks = [
-    { name: 'GitHub', defaultHover: '#000000', icon: <span className="material-symbols-outlined text-[28px]">code</span> },
-    { name: 'YouTube', defaultHover: '#FF0000', icon: <span className="material-symbols-outlined text-[28px]">smart_display</span> },
-    { name: 'Figma', defaultHover: '#F24E1E', icon: <span className="material-symbols-outlined text-[28px]">draw</span> },
-    { name: 'Notion', defaultHover: '#000000', icon: <span className="material-symbols-outlined text-[28px]">receipt_long</span> },
-    { name: 'Linear', defaultHover: '#5E6AD2', icon: <span className="material-symbols-outlined text-[28px]">timeline</span> },
-    { name: 'Reddit', defaultHover: '#FF4500', icon: <span className="material-symbols-outlined text-[28px]">forum</span> },
+    { name: 'GitHub', icon: <span className="material-symbols-outlined text-[24px]">code</span> },
+    { name: 'YouTube', icon: <span className="material-symbols-outlined text-[24px]">smart_display</span> },
+    { name: 'Figma', icon: <span className="material-symbols-outlined text-[24px]">draw</span> },
+    { name: 'Notion', icon: <span className="material-symbols-outlined text-[24px]">receipt_long</span> },
+    { name: 'Linear', icon: <span className="material-symbols-outlined text-[24px]">timeline</span> },
+    { name: 'Reddit', icon: <span className="material-symbols-outlined text-[24px]">forum</span> },
+    { name: 'X', icon: <span className="material-symbols-outlined text-[24px]">alternate_email</span> },
+    { name: 'Maps', icon: <span className="material-symbols-outlined text-[24px]">map</span> },
 ];
 
-function getGreeting(): string {
-    const hour = new Date().getHours();
-    if (hour < 6) return 'Good Night';
-    if (hour < 12) return 'Good Morning';
-    if (hour < 17) return 'Good Afternoon';
-    if (hour < 21) return 'Good Evening';
-    return 'Good Night';
-}
+const discoverFeed = [
+    { id: 1, title: 'The Future of AI: What to Expect in 2026', source: 'Tech Daily', time: '2 hours ago', image: 'https://images.unsplash.com/photo-1677442136019-21780ecad995?auto=format&fit=crop&q=80&w=400&h=250', category: 'Technology' },
+    { id: 2, title: 'Global Markets Rally as Inflation Cools', source: 'Financial Times', time: '4 hours ago', image: 'https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?auto=format&fit=crop&q=80&w=400&h=250', category: 'Finance' },
+    { id: 3, title: '10 Minimalist Desk Setups to Boost Productivity', source: 'Workspace Weekly', time: '5 hours ago', image: 'https://images.unsplash.com/photo-1524749292158-7540c2494485?auto=format&fit=crop&q=80&w=400&h=250', category: 'Lifestyle' },
+    { id: 4, title: 'New Electric Vehicle Breaks Range Records', source: 'Auto Vision', time: '8 hours ago', image: 'https://images.unsplash.com/photo-1593941707882-a5bba14938cb?auto=format&fit=crop&q=80&w=400&h=250', category: 'Automotive' },
+    { id: 5, title: 'NASA reveals stunning new images from deep space', source: 'Science Focus', time: '12 hours ago', image: 'https://images.unsplash.com/photo-1462331940025-496dfbfc7564?auto=format&fit=crop&q=80&w=400&h=250', category: 'Science' },
+    { id: 6, title: 'Top 5 Coffee Roasts for the Perfect Morning Brew', source: 'Culinary Arts', time: '1 day ago', image: 'https://images.unsplash.com/photo-1497935586351-b67a49e012bf?auto=format&fit=crop&q=80&w=400&h=250', category: 'Food' },
+];
 
-function formatTime(): string {
-    const now = new Date();
-    const hours = now.getHours() === 0 ? 12 : (now.getHours() > 12 ? now.getHours() - 12 : now.getHours());
-    const minutes = now.getMinutes().toString().padStart(2, '0');
-    const ampm = now.getHours() >= 12 ? 'PM' : 'AM';
-    return `${hours}:${minutes} ${ampm}`;
-}
+const weatherMock = {
+    temp: '72°',
+    condition: 'Partly Cloudy',
+    location: 'San Francisco',
+    icon: 'partly_cloudy_day'
+};
 
 export default function NewTabPage() {
-    const [time, setTime] = useState('');
-    const [greeting, setGreeting] = useState('');
     const [mounted, setMounted] = useState(false);
     const [searchQuery, setSearchQuery] = useState('');
 
     const { activeTabId, navigateToUrl } = useBrowserStore();
     const { newTabBackground, searchEngine, accentColor, glassmorphism, animations } = useSettingsStore();
 
-    // Set time/greeting only on client to avoid hydration mismatch
     useEffect(() => {
         setMounted(true);
-        setTime(formatTime());
-        setGreeting(getGreeting());
-        const interval = setInterval(() => {
-            setTime(formatTime());
-            setGreeting(getGreeting());
-        }, 10_000); // Check every 10s
-        return () => clearInterval(interval);
     }, []);
 
     const handleSearch = (e: React.FormEvent) => {
@@ -77,7 +68,7 @@ export default function NewTabPage() {
                         className="fixed inset-0 z-0 bg-cover bg-center pointer-events-none transition-opacity duration-1000"
                         style={{ backgroundImage: 'url(https://images.unsplash.com/photo-1506318137071-a8e063b4bec0?q=80&w=2500&auto=format&fit=crop)', opacity: mounted ? 1 : 0 }}
                     >
-                        <div className="absolute inset-0 bg-black/40" />
+                        <div className="absolute inset-0 bg-white/20" />
                     </div>
                 );
             case 'nature':
@@ -86,27 +77,27 @@ export default function NewTabPage() {
                         className="fixed inset-0 z-0 bg-cover bg-center pointer-events-none transition-opacity duration-1000"
                         style={{ backgroundImage: 'url(https://images.unsplash.com/photo-1511497584788-876760111969?q=80&w=2500&auto=format&fit=crop)', opacity: mounted ? 1 : 0 }}
                     >
-                        <div className="absolute inset-0 bg-[#0a0f18]/60" />
+                        <div className="absolute inset-0 bg-white/20" />
                     </div>
                 );
             case 'glass':
                 return (
-                    <div className="fixed inset-0 z-0 bg-gradient-to-br from-[#1a2332] to-[#0A0D14] pointer-events-none">
+                    <div className="fixed inset-0 z-0 bg-gradient-to-br from-[#E9F4FF] to-[#FFFFFF] pointer-events-none">
                         <div className="absolute inset-0 opacity-30 bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-white/20 via-transparent to-transparent" />
                     </div>
                 );
             case 'minimal':
-                return <div className="fixed inset-0 z-0 bg-[#080b10] pointer-events-none" />;
+                return <div className="fixed inset-0 z-0 bg-[#FFFFFF] pointer-events-none" />;
             case 'aurora':
             default:
                 return (
-                    <div className="fixed inset-0 z-0 pointer-events-none bg-[#0B0F19]">
+                    <div className="fixed inset-0 z-0 pointer-events-none bg-[#F4F8FF]">
                         <div
                             className={`absolute ${animations ? 'animate-pulse' : ''}`}
                             style={{
                                 top: '-20%', left: '-10%', width: '60%', height: '60%',
                                 borderRadius: '50%',
-                                background: `radial-gradient(circle, ${accentColor}33 0%, transparent 70%)`,
+                                background: `radial-gradient(circle, ${accentColor}22 0%, transparent 70%)`,
                                 filter: 'blur(100px)',
                                 animationDuration: '8s'
                             }}
@@ -116,7 +107,7 @@ export default function NewTabPage() {
                             style={{
                                 bottom: '-20%', right: '-10%', width: '60%', height: '60%',
                                 borderRadius: '50%',
-                                background: 'radial-gradient(circle, rgba(168, 85, 247, 0.15) 0%, transparent 70%)',
+                                background: 'radial-gradient(circle, rgba(166, 200, 255, 0.4) 0%, transparent 70%)',
                                 filter: 'blur(100px)',
                                 animationDuration: '12s'
                             }}
@@ -127,95 +118,104 @@ export default function NewTabPage() {
     };
 
     return (
-        <main className="relative z-10 flex-1 overflow-y-auto w-full flex flex-col items-center justify-center p-8 min-h-screen">
+        <main className="relative z-10 w-full h-full overflow-y-auto flex flex-col justify-start items-center">
             {renderBackground()}
 
-            <div className={`w-full max-w-4xl flex flex-col items-center gap-12 relative z-10 ${animations ? 'animate-in fade-in zoom-in-95 duration-1000' : ''}`}>
-                {/* Hero Section */}
-                <div className="text-center space-y-4">
-                    <h1
-                        className="font-future text-5xl md:text-7xl font-bold tracking-tight"
-                        style={{
-                            color: 'white',
-                            textShadow: '0 4px 20px rgba(0,0,0,0.5)',
-                        }}
-                    >
-                        {greeting || '\u00A0'}
-                    </h1>
-                    <h2
-                        className="font-future text-2xl md:text-4xl font-light tracking-widest"
-                        style={{
-                            color: accentColor,
-                            textShadow: `0 0 20px ${accentColor}80`,
-                        }}
-                    >
-                        {time || '\u00A0'}
-                    </h2>
+            {/* Top Bar Area (Weather & Settings) */}
+            <div className="w-full flex justify-between items-start p-6 relative z-10">
+                <div 
+                    className="flex items-center gap-3 px-4 py-2 rounded-2xl cursor-pointer hover:bg-white/50 transition-colors shadow-sm"
+                    style={{
+                        background: glassmorphism ? 'rgba(255, 255, 255, 0.7)' : 'rgba(255, 255, 255, 0.95)',
+                        backdropFilter: glassmorphism ? 'blur(20px)' : 'none',
+                        border: '1px solid rgba(0, 0, 0, 0.05)',
+                    }}
+                >
+                    <span className="material-symbols-outlined text-yellow-500 text-[24px]">{weatherMock.icon}</span>
+                    <div className="flex flex-col">
+                        <span className="text-sm font-bold text-[#0A1F44]">{weatherMock.temp}</span>
+                        <span className="text-[10px] font-medium text-[#5F7FA6]">{weatherMock.location}</span>
+                    </div>
                 </div>
 
-                {/* Main Search Bar */}
-                <form onSubmit={handleSearch} className="w-full max-w-2xl relative group">
-                    {/* Gradient Glow Halo */}
+                <div className="flex items-center gap-4">
+                    <button className="flex items-center justify-center p-2 rounded-full hover:bg-black/5 text-[#5F7FA6] transition-colors">
+                        <span className="material-symbols-outlined text-[24px]">apps</span>
+                    </button>
+                    <div className="size-8 rounded-full bg-[#004AAD] flex items-center justify-center text-white text-sm font-bold shadow-md cursor-pointer hover:bg-[#195BAC]">
+                        M
+                    </div>
+                </div>
+            </div>
+
+            {/* Core Search Area - Centered in viewport */}
+            <div className={`w-full max-w-3xl flex flex-col items-center flex-1 min-h-[40vh] justify-center mt-4 gap-8 relative z-10 ${animations ? 'animate-in fade-in zoom-in-95 duration-1000' : ''}`}>
+                
+                {/* Logo */}
+                <h1 
+                    className="font-future font-bold tracking-tighter select-none"
+                    style={{
+                        fontSize: '5rem',
+                        lineHeight: '1.4',
+                        padding: '0 0.2em',
+                        background: `linear-gradient(to right, ${accentColor}, #4D88FF)`,
+                        WebkitBackgroundClip: 'text',
+                        WebkitTextFillColor: 'transparent',
+                        filter: 'drop-shadow(0px 4px 10px rgba(0, 74, 173, 0.2))'
+                    }}
+                >
+                    DIVE
+                </h1>
+
+                {/* Search Bar */}
+                <form onSubmit={handleSearch} className="w-full relative group">
                     <div
-                        className={`absolute -inset-0.5 rounded-2xl blur opacity-30 ${animations ? 'group-hover:opacity-60 transition duration-500' : ''}`}
-                        style={{ background: `linear-gradient(to right, ${accentColor}, #a855f7)` }}
-                    />
-                    <div
-                        className="relative flex items-center w-full h-16 rounded-2xl px-6 shadow-2xl"
+                        className="relative flex items-center w-full h-14 rounded-full px-5 shadow-[0_4px_12px_rgba(0,0,0,0.05)] hover:shadow-[0_6px_20px_rgba(0,0,0,0.08)] transition-shadow duration-300"
                         style={{
-                            background: glassmorphism ? 'rgba(20, 25, 35, 0.6)' : 'rgba(20, 25, 35, 0.95)',
-                            backdropFilter: glassmorphism ? 'blur(20px)' : 'none',
-                            border: '1px solid rgba(255,255,255,0.1)',
+                            background: 'white',
+                            border: '1px solid rgba(0, 0, 0, 0.08)',
                         }}
                     >
-                        <span className="material-symbols-outlined text-slate-400 text-[28px] mr-4" style={{ color: accentColor }}>search</span>
+                        <span className="material-symbols-outlined text-[#5F7FA6] text-[22px] mr-3">search</span>
                         <input
                             type="text"
                             value={searchQuery}
                             onChange={(e) => setSearchQuery(e.target.value)}
-                            placeholder={`Search with ${searchEngine.charAt(0).toUpperCase() + searchEngine.slice(1)}...`}
-                            className="w-full h-full bg-transparent border-none text-xl text-white placeholder-slate-400 focus:outline-none focus:ring-0"
+                            placeholder={`Search the web...`}
+                            className="w-full h-full bg-transparent border-none text-[15px] text-[#0A1F44] placeholder-[#5F7FA6] focus:outline-none focus:ring-0"
                         />
                         <button
                             type="button"
-                            className="p-2.5 hover:bg-white/10 rounded-xl text-slate-400 hover:text-white transition-colors ml-2"
+                            className="p-2 hover:bg-black/5 rounded-full text-[#004AAD] transition-colors ml-1"
+                            title="Voice search"
                         >
-                            <span className="material-symbols-outlined text-[24px]">mic</span>
+                            <span className="material-symbols-outlined text-[20px]">mic</span>
+                        </button>
+                        <button
+                            type="button"
+                            className="p-2 hover:bg-black/5 rounded-full text-[#4D88FF] transition-colors ml-1"
+                            title="Image search"
+                        >
+                            <span className="material-symbols-outlined text-[20px]">center_focus_strong</span>
                         </button>
                     </div>
                 </form>
 
-                {/* Quick Links Grid */}
-                <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 gap-6 w-full px-4 mt-12">
+                {/* Quick Links */}
+                <div className="flex flex-wrap justify-center gap-6 w-full max-w-2xl px-4 mt-2">
                     {quickLinks.map((link) => (
                         <a
                             key={link.name}
                             href="#"
                             onClick={(e) => e.preventDefault()}
-                            className="flex flex-col items-center justify-center gap-3 p-5 rounded-2xl group/card cursor-pointer transition-transform hover:-translate-y-1"
-                            style={{
-                                background: glassmorphism ? 'rgba(255,255,255,0.03)' : 'rgba(30, 35, 45, 0.8)',
-                                backdropFilter: glassmorphism ? 'blur(10px)' : 'none',
-                                border: '1px solid rgba(255,255,255,0.05)',
-                            }}
+                            className="flex flex-col items-center justify-center gap-3 p-3 rounded-2xl group/card cursor-pointer hover:bg-white/60 transition-colors"
                         >
                             <div
-                                className="w-14 h-14 rounded-full flex items-center justify-center text-slate-300 shadow-lg transition-all duration-300 group-hover/card:scale-110"
-                                style={{ background: 'rgba(0,0,0,0.3)' }}
-                                onMouseEnter={(e) => {
-                                    (e.currentTarget as HTMLElement).style.background = accentColor;
-                                    (e.currentTarget as HTMLElement).style.color = 'white';
-                                    (e.currentTarget as HTMLElement).style.boxShadow = `0 4px 15px ${accentColor}66`;
-                                }}
-                                onMouseLeave={(e) => {
-                                    (e.currentTarget as HTMLElement).style.background = 'rgba(0,0,0,0.3)';
-                                    (e.currentTarget as HTMLElement).style.color = '#cbd5e1';
-                                    (e.currentTarget as HTMLElement).style.boxShadow = '0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06)';
-                                }}
+                                className="w-12 h-12 rounded-full flex items-center justify-center bg-white text-[#0A1F44] shadow-sm border border-black/5 group-hover/card:shadow-md transition-all duration-300"
                             >
                                 {link.icon}
                             </div>
-                            <span className="text-sm font-medium text-slate-400 group-hover/card:text-white transition-colors">
+                            <span className="text-xs font-medium text-[#5F7FA6] group-hover/card:text-[#0A1F44] transition-colors">
                                 {link.name}
                             </span>
                         </a>
@@ -223,29 +223,60 @@ export default function NewTabPage() {
                 </div>
             </div>
 
-            {/* Settings Widget Button */}
-            <div className="fixed bottom-8 right-8 z-20">
+            {/* Discover Feed */}
+            <div className="w-full max-w-5xl px-6 pb-20 relative z-10 flex flex-col items-center mt-8">
+                <div className="w-full border-t border-black/5 pt-8 mb-6 flex justify-between items-end">
+                    <h2 className="text-lg font-bold text-[#0A1F44] flex items-center gap-2">
+                        <span className="material-symbols-outlined text-[#004AAD]">feed</span>
+                        Discover
+                    </h2>
+                    <button className="text-xs text-[#004AAD] hover:underline font-semibold">Settings</button>
+                </div>
+
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 w-full">
+                    {discoverFeed.map((post) => (
+                        <div 
+                            key={post.id} 
+                            className="flex flex-col rounded-2xl bg-white overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 cursor-pointer border border-black/5 group/news"
+                        >
+                            <div className="h-40 w-full overflow-hidden relative">
+                                {/* eslint-disable-next-line @next/next/no-img-element */}
+                                <img 
+                                    src={post.image} 
+                                    alt={post.title} 
+                                    className="w-full h-full object-cover transition-transform duration-700 group-hover/news:scale-105"
+                                />
+                                <div className="absolute top-3 left-3 px-2 py-1 bg-white/90 backdrop-blur-sm rounded-md text-[10px] font-bold text-[#004AAD] uppercase tracking-wider shadow-sm">
+                                    {post.category}
+                                </div>
+                            </div>
+                            <div className="p-4 flex flex-col flex-1 justify-between">
+                                <h3 className="text-[#0A1F44] font-bold text-sm leading-snug mb-3 group-hover/news:text-[#004AAD] transition-colors">
+                                    {post.title}
+                                </h3>
+                                <div className="flex items-center justify-between mt-auto">
+                                    <div className="flex items-center gap-2">
+                                        <div className="size-5 rounded-full bg-[#E9F4FF] flex items-center justify-center text-[10px] font-bold text-[#0A1F44]">
+                                            {post.source.charAt(0)}
+                                        </div>
+                                        <span className="text-[11px] text-[#5F7FA6] font-medium">{post.source}</span>
+                                    </div>
+                                    <span className="text-[11px] text-[#8FA9C9]">{post.time}</span>
+                                </div>
+                            </div>
+                        </div>
+                    ))}
+                </div>
+            </div>
+
+            {/* Quick Customize Button (Floating) */}
+            <div className="fixed bottom-6 right-6 z-20">
                 <button
-                    onClick={() => navigateToUrl(activeTabId!, 'nexus://settings')}
-                    className="flex items-center gap-2 px-5 py-3 text-slate-300 rounded-full shadow-2xl transition-all hover:scale-105"
-                    style={{
-                        background: glassmorphism ? 'rgba(20, 25, 35, 0.8)' : 'rgba(20, 25, 35, 1)',
-                        backdropFilter: glassmorphism ? 'blur(12px)' : 'none',
-                        border: '1px solid rgba(255,255,255,0.1)',
-                    }}
-                    onMouseEnter={(e) => {
-                        (e.currentTarget as HTMLElement).style.borderColor = accentColor;
-                        (e.currentTarget as HTMLElement).style.color = 'white';
-                        (e.currentTarget as HTMLElement).style.boxShadow = `0 4px 20px ${accentColor}40`;
-                    }}
-                    onMouseLeave={(e) => {
-                        (e.currentTarget as HTMLElement).style.borderColor = 'rgba(255,255,255,0.1)';
-                        (e.currentTarget as HTMLElement).style.color = '#cbd5e1';
-                        (e.currentTarget as HTMLElement).style.boxShadow = 'shadow-2xl';
-                    }}
+                    onClick={() => navigateToUrl(activeTabId!, 'dive://settings')}
+                    className="flex items-center justify-center p-3 text-[#5F7FA6] hover:text-[#0A1F44] bg-white rounded-full shadow-[0_4px_15px_rgba(0,0,0,0.08)] hover:shadow-[0_6px_20px_rgba(0,0,0,0.12)] transition-all hover:scale-105"
+                    title="Customize Page"
                 >
-                    <span className="material-symbols-outlined text-[20px]">tune</span>
-                    <span className="text-sm font-medium">Customize</span>
+                    <span className="material-symbols-outlined text-[22px]">edit</span>
                 </button>
             </div>
         </main>

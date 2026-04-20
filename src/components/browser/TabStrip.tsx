@@ -54,8 +54,8 @@ export default function TabStrip() {
                 rounded-t-lg text-xs font-medium cursor-pointer
                 transition-colors
                 ${isActive
-                                    ? 'bg-[#282e39] text-white border-t border-x border-[#3c4453]/50'
-                                    : 'hover:bg-[#282e39]/50 text-slate-400 hover:text-white'
+                                    ? 'bg-[#DDEEFF] text-[#0A1F44] border-t border-x border-[#A6C8FF]/50'
+                                    : 'hover:bg-[#DDEEFF]/50 text-[#5F7FA6] hover:text-[#0A1F44]'
                                 }
               `}
                         >
@@ -63,8 +63,8 @@ export default function TabStrip() {
                             {tab.favicon ? (
                                 <img src={tab.favicon} alt="" className="w-4 h-4 rounded-sm" />
                             ) : (
-                                <span className={`material-symbols-outlined text-[16px] ${isActive ? 'text-[#135bec]' : ''}`}>
-                                    {tab.url === 'nexus://newtab' ? 'public' : 'language'}
+                                <span className={`material-symbols-outlined text-[16px] ${isActive ? 'text-[#004AAD]' : ''}`}>
+                                    {tab.url === 'dive://newtab' ? 'public' : 'language'}
                                 </span>
                             )}
 
@@ -73,7 +73,7 @@ export default function TabStrip() {
 
                             {/* Loading Indicator */}
                             {tab.isLoading && (
-                                <span className="material-symbols-outlined text-[14px] animate-spin text-[#135bec]">
+                                <span className="material-symbols-outlined text-[14px] animate-spin text-[#004AAD]">
                                     progress_activity
                                 </span>
                             )}
@@ -88,7 +88,7 @@ export default function TabStrip() {
 
                             {/* Active Tab Indicator */}
                             {isActive && (
-                                <div className="absolute bottom-0 left-0 right-0 h-[2px] bg-[#135bec]" />
+                                <div className="absolute bottom-0 left-0 right-0 h-[2px] bg-[#004AAD]" />
                             )}
                         </div>
                     );
@@ -97,7 +97,7 @@ export default function TabStrip() {
                 {/* New Tab Button */}
                 <button
                     onClick={() => openTab()}
-                    className="flex items-center justify-center w-8 h-8 hover:bg-[#282e39]/50 rounded-lg text-slate-400 hover:text-white transition-colors mb-1 ml-1"
+                    className="flex items-center justify-center w-8 h-8 hover:bg-[#DDEEFF]/50 rounded-lg text-[#5F7FA6] hover:text-[#0A1F44] transition-colors mb-1 ml-1"
                 >
                     <span className="material-symbols-outlined text-[20px]">add</span>
                 </button>

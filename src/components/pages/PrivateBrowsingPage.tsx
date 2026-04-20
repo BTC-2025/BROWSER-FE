@@ -71,7 +71,7 @@ export default function PrivateBrowsingPage() {
                             value={searchQuery}
                             onChange={(e) => setSearchQuery(e.target.value)}
                             placeholder="Search privately..."
-                            className="w-full h-full bg-transparent border-none text-lg text-white placeholder-slate-500 focus:outline-none focus:ring-0 ml-3"
+                            className="w-full h-full bg-transparent border-none text-lg text-[#0A1F44] placeholder-slate-500 focus:outline-none focus:ring-0 ml-3"
                         />
                         <span className="material-symbols-outlined text-purple-400/40 text-[20px]">visibility_off</span>
                     </div>
@@ -85,7 +85,7 @@ export default function PrivateBrowsingPage() {
                         </div>
                         <div className="text-center">
                             <p className="text-sm font-semibold text-slate-200">Auto-Clear History</p>
-                            <p className="text-xs text-slate-500 mt-1">Browsing data is erased when you close this window</p>
+                            <p className="text-xs text-[#8FA9C9] mt-1">Browsing data is erased when you close this window</p>
                         </div>
                     </div>
                     <div className="flex flex-col items-center gap-3 p-5 rounded-xl bg-white/[0.02] border border-white/5">
@@ -94,7 +94,7 @@ export default function PrivateBrowsingPage() {
                         </div>
                         <div className="text-center">
                             <p className="text-sm font-semibold text-slate-200">No Cookies Saved</p>
-                            <p className="text-xs text-slate-500 mt-1">Cookies and site data are not persisted</p>
+                            <p className="text-xs text-[#8FA9C9] mt-1">Cookies and site data are not persisted</p>
                         </div>
                     </div>
                     <div className="flex flex-col items-center gap-3 p-5 rounded-xl bg-white/[0.02] border border-white/5">
@@ -103,7 +103,7 @@ export default function PrivateBrowsingPage() {
                         </div>
                         <div className="text-center">
                             <p className="text-sm font-semibold text-slate-200">Enhanced Privacy</p>
-                            <p className="text-xs text-slate-500 mt-1">Third-party trackers are blocked by default</p>
+                            <p className="text-xs text-[#8FA9C9] mt-1">Third-party trackers are blocked by default</p>
                         </div>
                     </div>
                 </div>

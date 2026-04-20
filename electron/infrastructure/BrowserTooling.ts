@@ -72,7 +72,7 @@ const openNewTab: AgentTool = {
     requiresApproval: false,
     parameters: [param('url', 'string', 'Optional URL to open', false)],
     execute: async (params) => {
-        const url = (params.url as string) || 'nexus://newtab';
+        const url = (params.url as string) || 'dive://newtab';
         return success({ tabOpened: url });
     },
 };
@@ -99,7 +99,7 @@ const getPageTitle: AgentTool = {
     parameters: [],
     execute: async () => {
         // In production: use webContents.executeJavaScript('document.title')
-        return success({ title: 'Nexus Browser' });
+        return success({ title: 'Dive Browser' });
     },
 };
 
@@ -111,7 +111,7 @@ const getPageUrl: AgentTool = {
     parameters: [],
     execute: async () => {
         // In production: use webContents.getURL()
-        return success({ url: 'nexus://newtab' });
+        return success({ url: 'dive://newtab' });
     },
 };
 

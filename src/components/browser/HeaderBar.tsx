@@ -73,9 +73,9 @@ export default function HeaderBar() {
             ref={headerRef}
             className="relative z-50 flex flex-col w-full shadow-lg"
             style={{
-                background: 'rgba(17, 19, 24, 0.9)',
+                background: 'rgba(244, 248, 255, 0.9)',
                 backdropFilter: 'blur(12px)',
-                borderBottom: '1px solid #282e39',
+                borderBottom: '1px solid #DDEEFF',
             }}
         >
             {/* Loading Bar */}

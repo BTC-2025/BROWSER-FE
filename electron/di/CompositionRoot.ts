@@ -21,9 +21,9 @@ export class CompositionRoot {
     public navigateToUrl: NavigateToUrlUseCase;
     public setActiveTab: SetActiveTabUseCase;
 
-    constructor(window: BaseWindow) {
+    constructor(window: BaseWindow, chromeView?: any) {
         // Infrastructure
-        this.engine = new ElectronBrowserEngine(window);
+        this.engine = new ElectronBrowserEngine(window, chromeView);
         this.memoryManager = new MemoryManager({
             tabInactivityThresholdMs: 5 * 60_000, // 5 minutes
             checkIntervalMs: 30_000, // Check every 30s

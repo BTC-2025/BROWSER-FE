@@ -11,7 +11,7 @@ const CATEGORY_COLORS: Record<string, { bg: string; text: string; icon: string }
 };
 
 const STATUS_CONFIG: Record<string, { color: string; icon: string; label: string }> = {
-    pending: { color: 'text-slate-500', icon: 'schedule', label: 'Pending' },
+    pending: { color: 'text-[#8FA9C9]', icon: 'schedule', label: 'Pending' },
     approved: { color: 'text-blue-400', icon: 'check_circle', label: 'Approved' },
     rejected: { color: 'text-red-400', icon: 'cancel', label: 'Rejected' },
     executing: { color: 'text-amber-400', icon: 'progress_activity', label: 'Running' },
@@ -27,7 +27,7 @@ function StepCard({ step, onApprove, onReject }: { step: AgentStep; onApprove: (
 
     return (
         <div className={`rounded-xl border transition-all ${isPending ? 'border-amber-500/30 bg-amber-500/5 shadow-[0_0_15px_rgba(245,158,11,0.1)]' :
-            isExecuting ? 'border-[#135bec]/30 bg-[#135bec]/5' :
+            isExecuting ? 'border-[#004AAD]/30 bg-[#004AAD]/5' :
                 step.status === 'completed' ? 'border-emerald-500/20 bg-emerald-500/5' :
                     step.status === 'rejected' ? 'border-red-500/20 bg-red-500/5 opacity-60' :
                         'border-white/5 bg-white/[0.02]'
@@ -40,7 +40,7 @@ function StepCard({ step, onApprove, onReject }: { step: AgentStep; onApprove: (
                     </div>
                     <div className="flex-1 min-w-0">
                         <div className="flex items-center gap-2">
-                            <span className="text-xs font-mono text-slate-500 bg-white/5 px-1.5 py-0.5 rounded">{step.toolName}</span>
+                            <span className="text-xs font-mono text-[#8FA9C9] bg-white/5 px-1.5 py-0.5 rounded">{step.toolName}</span>
                             <span className={`flex items-center gap-1 text-[10px] font-medium ${status.color}`}>
                                 <span className={`material-symbols-outlined text-[12px] ${isExecuting ? 'animate-spin' : ''}`}>{status.icon}</span>
                                 {status.label}
@@ -52,7 +52,7 @@ function StepCard({ step, onApprove, onReject }: { step: AgentStep; onApprove: (
                             <div className="mt-2 p-2 rounded-lg bg-black/20 border border-white/5">
                                 {Object.entries(step.params).map(([key, value]) => (
                                     <div key={key} className="flex items-center gap-2 text-[10px]">
-                                        <span className="text-slate-500 font-mono">{key}:</span>
+                                        <span className="text-[#8FA9C9] font-mono">{key}:</span>
                                         <span className="text-slate-300 truncate">{String(value)}</span>
                                     </div>
                                 ))}
@@ -74,14 +74,14 @@ function StepCard({ step, onApprove, onReject }: { step: AgentStep; onApprove: (
                     <div className="flex gap-2 mt-3 pl-11">
                         <button
                             onClick={onApprove}
-                            className="flex items-center gap-1.5 px-3 py-1.5 bg-emerald-500 hover:bg-emerald-600 text-white text-xs font-semibold rounded-lg transition-colors shadow-lg shadow-emerald-500/20"
+                            className="flex items-center gap-1.5 px-3 py-1.5 bg-emerald-500 hover:bg-emerald-600 text-[#0A1F44] text-xs font-semibold rounded-lg transition-colors shadow-lg shadow-emerald-500/20"
                         >
                             <span className="material-symbols-outlined text-[14px]">check</span>
                             Approve
                         </button>
                         <button
                             onClick={onReject}
-                            className="flex items-center gap-1.5 px-3 py-1.5 bg-white/5 hover:bg-red-500/20 text-slate-400 hover:text-red-400 text-xs font-medium rounded-lg transition-colors border border-white/5"
+                            className="flex items-center gap-1.5 px-3 py-1.5 bg-white/5 hover:bg-red-500/20 text-[#5F7FA6] hover:text-red-400 text-xs font-medium rounded-lg transition-colors border border-white/5"
                         >
                             <span className="material-symbols-outlined text-[14px]">close</span>
                             Reject
@@ -132,16 +132,16 @@ export default function AgentPanel() {
             <div className="flex items-center justify-between p-4 border-b border-white/5">
                 <div className="flex items-center gap-2">
                     <div className="size-8 rounded-lg bg-gradient-to-br from-amber-500 to-orange-600 flex items-center justify-center shadow-[0_0_12px_rgba(245,158,11,0.4)]">
-                        <span className="material-symbols-outlined text-white text-[18px]">smart_toy</span>
+                        <span className="material-symbols-outlined text-[#0A1F44] text-[18px]">smart_toy</span>
                     </div>
                     <div>
-                        <h3 className="text-sm font-bold text-white">Agent Runtime</h3>
-                        <p className="text-[10px] text-slate-500">Guided Mode</p>
+                        <h3 className="text-sm font-bold text-[#0A1F44]">Agent Runtime</h3>
+                        <p className="text-[10px] text-[#8FA9C9]">Guided Mode</p>
                     </div>
                 </div>
                 <button
                     onClick={closePanel}
-                    className="p-1.5 rounded-lg text-slate-400 hover:text-white hover:bg-white/5 transition-colors"
+                    className="p-1.5 rounded-lg text-[#5F7FA6] hover:text-[#0A1F44] hover:bg-white/5 transition-colors"
                 >
                     <span className="material-symbols-outlined text-[18px]">close</span>
                 </button>
@@ -157,7 +157,7 @@ export default function AgentPanel() {
                                 <span className="material-symbols-outlined text-emerald-400 text-[16px]">check_circle</span>
                                 <span className="text-xs font-semibold text-emerald-400">Task completed</span>
                             </div>
-                            <p className="text-[10px] text-slate-400 mt-1 truncate">{currentTask.objective}</p>
+                            <p className="text-[10px] text-[#5F7FA6] mt-1 truncate">{currentTask.objective}</p>
                         </div>
                     )}
                     <form onSubmit={handleStart}>
@@ -168,12 +168,12 @@ export default function AgentPanel() {
                                 value={objective}
                                 onChange={(e) => setObjective(e.target.value)}
                                 placeholder="What should the agent do?"
-                                className="flex-1 bg-transparent border-none text-sm text-white placeholder-slate-500 focus:outline-none focus:ring-0"
+                                className="flex-1 bg-transparent border-none text-sm text-[#0A1F44] placeholder-slate-500 focus:outline-none focus:ring-0"
                             />
                             <button
                                 type="submit"
                                 disabled={!objective.trim()}
-                                className="p-1.5 rounded-lg bg-amber-500 hover:bg-amber-600 text-white transition-colors disabled:opacity-30"
+                                className="p-1.5 rounded-lg bg-amber-500 hover:bg-amber-600 text-[#0A1F44] transition-colors disabled:opacity-30"
                             >
                                 <span className="material-symbols-outlined text-[16px]">play_arrow</span>
                             </button>
@@ -189,7 +189,7 @@ export default function AgentPanel() {
                             <button
                                 key={qt.label}
                                 onClick={() => { setObjective(qt.label); }}
-                                className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-white/[0.02] border border-white/5 hover:bg-white/5 hover:border-amber-500/20 text-slate-400 hover:text-white text-[10px] transition-all"
+                                className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-white/[0.02] border border-white/5 hover:bg-white/5 hover:border-amber-500/20 text-[#5F7FA6] hover:text-[#0A1F44] text-[10px] transition-all"
                             >
                                 <span className="material-symbols-outlined text-[12px]">{qt.icon}</span>
                                 {qt.label}
@@ -202,9 +202,9 @@ export default function AgentPanel() {
                     {/* Current task header */}
                     <div className="flex items-center justify-between">
                         <div className="flex-1 min-w-0">
-                            <p className="text-xs font-semibold text-white truncate">{currentTask.objective}</p>
+                            <p className="text-xs font-semibold text-[#0A1F44] truncate">{currentTask.objective}</p>
                             <div className="flex items-center gap-3 mt-1">
-                                <span className="text-[10px] text-slate-500">{completedSteps}/{totalSteps} steps</span>
+                                <span className="text-[10px] text-[#8FA9C9]">{completedSteps}/{totalSteps} steps</span>
                                 {pendingApprovals > 0 && (
                                     <span className="flex items-center gap-1 text-[10px] text-amber-400 font-medium">
                                         <span className="material-symbols-outlined text-[10px]">warning</span>
@@ -217,7 +217,7 @@ export default function AgentPanel() {
                             {pendingApprovals > 0 && (
                                 <button
                                     onClick={approveAll}
-                                    className="flex items-center gap-1 px-2 py-1 bg-emerald-500 hover:bg-emerald-600 text-white text-[10px] font-semibold rounded-md transition-colors"
+                                    className="flex items-center gap-1 px-2 py-1 bg-emerald-500 hover:bg-emerald-600 text-[#0A1F44] text-[10px] font-semibold rounded-md transition-colors"
                                 >
                                     <span className="material-symbols-outlined text-[12px]">done_all</span>
                                     Approve All
@@ -225,7 +225,7 @@ export default function AgentPanel() {
                             )}
                             <button
                                 onClick={cancelTask}
-                                className="px-2 py-1 text-slate-400 hover:text-red-400 text-[10px] font-medium rounded-md hover:bg-white/5 transition-colors"
+                                className="px-2 py-1 text-[#5F7FA6] hover:text-red-400 text-[10px] font-medium rounded-md hover:bg-white/5 transition-colors"
                             >
                                 Cancel
                             </button>
@@ -247,8 +247,8 @@ export default function AgentPanel() {
                     <div className="flex flex-col items-center gap-4 py-12">
                         <span className="material-symbols-outlined text-[32px] text-amber-500 animate-spin">progress_activity</span>
                         <div className="text-center">
-                            <p className="text-sm text-white font-medium">Planning...</p>
-                            <p className="text-xs text-slate-500 mt-1">Analyzing objective and creating execution plan</p>
+                            <p className="text-sm text-[#0A1F44] font-medium">Planning...</p>
+                            <p className="text-xs text-[#8FA9C9] mt-1">Analyzing objective and creating execution plan</p>
                         </div>
                     </div>
                 )}
@@ -268,8 +268,8 @@ export default function AgentPanel() {
                             <span className="material-symbols-outlined text-amber-500 text-3xl">memory</span>
                         </div>
                         <div>
-                            <p className="text-sm font-semibold text-white">Guided Agent Mode</p>
-                            <p className="text-xs text-slate-500 mt-1 max-w-[280px]">
+                            <p className="text-sm font-semibold text-[#0A1F44]">Guided Agent Mode</p>
+                            <p className="text-xs text-[#8FA9C9] mt-1 max-w-[280px]">
                                 Tell the agent what to do. It will plan steps, and pause for your approval on sensitive actions.
                             </p>
                         </div>
@@ -281,7 +281,7 @@ export default function AgentPanel() {
                                 { icon: 'edit', label: 'Fill forms', desc: 'Approval' },
                             ].map((cap) => (
                                 <div key={cap.label} className="p-2.5 rounded-lg bg-white/[0.02] border border-white/5 text-center">
-                                    <span className="material-symbols-outlined text-slate-400 text-[16px]">{cap.icon}</span>
+                                    <span className="material-symbols-outlined text-[#5F7FA6] text-[16px]">{cap.icon}</span>
                                     <p className="text-[10px] text-slate-300 font-medium mt-1">{cap.label}</p>
                                     <p className={`text-[9px] mt-0.5 ${cap.desc === 'Safe' ? 'text-emerald-500' : 'text-amber-500'}`}>{cap.desc}</p>
                                 </div>

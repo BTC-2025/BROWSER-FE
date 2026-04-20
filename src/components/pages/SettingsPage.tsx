@@ -21,18 +21,18 @@ const settingsNav = [
 ];
 
 const accentColors = [
-    { name: 'Neon Blue', value: '#135bec' },
+    { name: 'Neon Blue', value: '#004AAD' },
     { name: 'Cyber Pink', value: '#ec4899' },
     { name: 'Emerald', value: '#10b981' },
     { name: 'Amber', value: '#f59e0b' },
 ];
 
 const backgrounds: { id: NewTabBackground; name: string; preview: string }[] = [
-    { id: 'aurora', name: 'Aurora Edge', preview: 'linear-gradient(45deg, #135bec, #a855f7)' },
+    { id: 'aurora', name: 'Aurora Edge', preview: 'linear-gradient(45deg, #004AAD, #a855f7)' },
     { id: 'glass', name: 'Frosted Glass', preview: 'linear-gradient(to right bottom, rgba(255,255,255,0.1), rgba(255,255,255,0.05))' },
     { id: 'space', name: 'Deep Space', preview: 'url(https://images.unsplash.com/photo-1506318137071-a8e063b4bec0?q=80&w=200&auto=format&fit=crop)' },
     { id: 'nature', name: 'Nordic Forest', preview: 'url(https://images.unsplash.com/photo-1511497584788-876760111969?q=80&w=200&auto=format&fit=crop)' },
-    { id: 'minimal', name: 'Minimal Dark', preview: '#101622' },
+    { id: 'minimal', name: 'Minimal Dark', preview: '#FFFFFF' },
 ];
 
 const searchEngines: { id: SearchEngine; name: string; domain: string; icon: string }[] = [
@@ -52,18 +52,18 @@ export default function SettingsPage() {
     } = useSettingsStore();
 
     return (
-        <div className="flex-1 flex overflow-hidden relative" style={{ background: '#0f1115', backgroundImage: 'radial-gradient(at 0% 0%, rgba(19, 91, 236, 0.15) 0px, transparent 50%), radial-gradient(at 100% 100%, rgba(139, 92, 246, 0.1) 0px, transparent 50%)' }}>
+        <div className="flex-1 flex overflow-hidden relative" style={{ background: '#0f1115', backgroundImage: 'radial-gradient(at 0% 0%, rgba(0, 74, 173, 0.15) 0px, transparent 50%), radial-gradient(at 100% 100%, rgba(139, 92, 246, 0.1) 0px, transparent 50%)' }}>
             {/* Sidebar Navigation */}
             <aside className="glass-panel w-72 flex-shrink-0 flex flex-col h-full border-r border-white/5 relative z-20" style={{ background: 'rgba(15, 17, 21, 0.7)', backdropFilter: 'blur(20px)' }}>
                 {/* Header Logo */}
                 <div className="p-6 pb-2">
                     <div className="flex items-center gap-3">
-                        <div className="flex items-center justify-center size-10 rounded-xl text-white" style={{ background: `linear-gradient(135deg, ${accentColor}, #8b5cf6)`, boxShadow: `0 0 15px ${accentColor}66` }}>
+                        <div className="flex items-center justify-center size-10 rounded-xl text-[#0A1F44]" style={{ background: `linear-gradient(135deg, ${accentColor}, #8b5cf6)`, boxShadow: `0 0 15px ${accentColor}66` }}>
                             <span className="material-symbols-outlined text-2xl">rocket_launch</span>
                         </div>
                         <div>
-                            <h1 className="font-future text-xl tracking-wide text-white">NEXUS</h1>
-                            <p className="text-xs text-slate-400">Settings</p>
+                            <h1 className="font-future text-xl tracking-wide text-[#0A1F44]">DIVE</h1>
+                            <p className="text-xs text-[#5F7FA6]">Settings</p>
                         </div>
                     </div>
                 </div>
@@ -71,14 +71,14 @@ export default function SettingsPage() {
                 <div className="flex-1 overflow-y-auto px-4 py-6 flex flex-col gap-1">
                     {settingsNav.map((group) => (
                         <React.Fragment key={group.section}>
-                            <p className="px-3 text-xs font-semibold text-slate-500 uppercase tracking-wider mb-2">{group.section}</p>
+                            <p className="px-3 text-xs font-semibold text-[#8FA9C9] uppercase tracking-wider mb-2">{group.section}</p>
                             {group.items.map((item) => (
                                 <button
                                     key={item.id}
                                     onClick={() => setActiveSection(item.id)}
                                     className={`flex items-center gap-3 px-4 py-3 rounded-xl transition-all duration-200 w-full text-left ${activeSection === item.id
-                                        ? 'text-white border'
-                                        : 'text-slate-400 hover:text-white hover:bg-white/5 border border-transparent'
+                                        ? 'text-[#0A1F44] border'
+                                        : 'text-[#5F7FA6] hover:text-[#0A1F44] hover:bg-white/5 border border-transparent'
                                         }`}
                                     style={activeSection === item.id ? {
                                         background: `${accentColor}1A`,
@@ -107,18 +107,18 @@ export default function SettingsPage() {
                         {activeSection === 'appearance' && (
                             <div className="animate-fadeIn space-y-10">
                                 <div className="flex flex-col gap-2">
-                                    <h1 className="font-future text-4xl md:text-5xl text-white tracking-tight drop-shadow-lg">Appearance</h1>
-                                    <p className="text-lg text-slate-400 font-light">Customize the look and feel of your browsing experience.</p>
+                                    <h1 className="font-future text-4xl md:text-5xl text-[#0A1F44] tracking-tight drop-shadow-lg">Appearance</h1>
+                                    <p className="text-lg text-[#5F7FA6] font-light">Customize the look and feel of your browsing experience.</p>
                                 </div>
 
                                 {/* New Tab Background */}
                                 <section className="glass-card rounded-2xl p-6 backdrop-blur-sm border border-white/5 bg-black/20 space-y-6">
                                     <div className="flex items-center justify-between">
                                         <div>
-                                            <h2 className="text-xl font-semibold text-white">New Tab Background</h2>
-                                            <p className="text-slate-400 text-sm mt-1">Select a stunning backdrop for your new tab pages.</p>
+                                            <h2 className="text-xl font-semibold text-[#0A1F44]">New Tab Background</h2>
+                                            <p className="text-[#5F7FA6] text-sm mt-1">Select a stunning backdrop for your new tab pages.</p>
                                         </div>
-                                        <span className="material-symbols-outlined text-slate-500 text-3xl">wallpaper</span>
+                                        <span className="material-symbols-outlined text-[#8FA9C9] text-3xl">wallpaper</span>
                                     </div>
                                     <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-4">
                                         {backgrounds.map((bg) => (
@@ -130,7 +130,7 @@ export default function SettingsPage() {
                                                 >
                                                     <div className="absolute inset-0 bg-cover bg-center" style={{ background: bg.preview, backgroundSize: 'cover' }} />
                                                     <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent flex items-end p-2 border-t border-white/10">
-                                                        <span className="text-xs font-medium text-white shadow-black drop-shadow-md">{bg.name}</span>
+                                                        <span className="text-xs font-medium text-[#0A1F44] shadow-black drop-shadow-md">{bg.name}</span>
                                                     </div>
                                                 </div>
                                             </label>
@@ -142,10 +142,10 @@ export default function SettingsPage() {
                                 <section className="glass-card rounded-2xl p-6 backdrop-blur-sm border border-white/5 bg-black/20 space-y-6">
                                     <div className="flex items-center justify-between">
                                         <div>
-                                            <h2 className="text-xl font-semibold text-white">Accent Color</h2>
-                                            <p className="text-slate-400 text-sm mt-1">Choose the primary color for buttons and highlights.</p>
+                                            <h2 className="text-xl font-semibold text-[#0A1F44]">Accent Color</h2>
+                                            <p className="text-[#5F7FA6] text-sm mt-1">Choose the primary color for buttons and highlights.</p>
                                         </div>
-                                        <span className="material-symbols-outlined text-slate-500 text-3xl">colors</span>
+                                        <span className="material-symbols-outlined text-[#8FA9C9] text-3xl">colors</span>
                                     </div>
                                     <div className="flex flex-wrap gap-6">
                                         {accentColors.map((color) => (
@@ -159,7 +159,7 @@ export default function SettingsPage() {
                                                         '--tw-ring-color': color.value,
                                                     } as React.CSSProperties}
                                                 />
-                                                <span className="absolute -bottom-8 left-1/2 -translate-x-1/2 text-xs font-medium text-slate-400 whitespace-nowrap peer-checked:text-white">{color.name}</span>
+                                                <span className="absolute -bottom-8 left-1/2 -translate-x-1/2 text-xs font-medium text-[#5F7FA6] whitespace-nowrap peer-checked:text-[#0A1F44]">{color.name}</span>
                                             </label>
                                         ))}
                                     </div>
@@ -170,12 +170,12 @@ export default function SettingsPage() {
                                 <section className="grid grid-cols-1 md:grid-cols-2 gap-6">
                                     <div className="flex items-center justify-between p-4 rounded-xl bg-black/20 border border-white/5 hover:bg-white/5 transition-colors">
                                         <div className="flex items-center gap-3">
-                                            <div className="p-2 rounded-lg bg-white/5 text-white">
+                                            <div className="p-2 rounded-lg bg-white/5 text-[#0A1F44]">
                                                 <span className="material-symbols-outlined">blur_on</span>
                                             </div>
                                             <div>
-                                                <p className="text-white font-medium">Glassmorphism</p>
-                                                <p className="text-xs text-slate-400">Enable transparency effects</p>
+                                                <p className="text-[#0A1F44] font-medium">Glassmorphism</p>
+                                                <p className="text-xs text-[#5F7FA6]">Enable transparency effects</p>
                                             </div>
                                         </div>
                                         <label className="relative inline-flex items-center cursor-pointer">
@@ -185,12 +185,12 @@ export default function SettingsPage() {
                                     </div>
                                     <div className="flex items-center justify-between p-4 rounded-xl bg-black/20 border border-white/5 hover:bg-white/5 transition-colors">
                                         <div className="flex items-center gap-3">
-                                            <div className="p-2 rounded-lg bg-white/5 text-white">
+                                            <div className="p-2 rounded-lg bg-white/5 text-[#0A1F44]">
                                                 <span className="material-symbols-outlined">animation</span>
                                             </div>
                                             <div>
-                                                <p className="text-white font-medium">Fluid Animations</p>
-                                                <p className="text-xs text-slate-400">Smooth UI transitions</p>
+                                                <p className="text-[#0A1F44] font-medium">Fluid Animations</p>
+                                                <p className="text-xs text-[#5F7FA6]">Smooth UI transitions</p>
                                             </div>
                                         </div>
                                         <label className="relative inline-flex items-center cursor-pointer">
@@ -206,15 +206,15 @@ export default function SettingsPage() {
                         {activeSection === 'search' && (
                             <div className="animate-fadeIn space-y-10">
                                 <div className="flex flex-col gap-2">
-                                    <h1 className="font-future text-4xl md:text-5xl text-white tracking-tight drop-shadow-lg">Search Engine</h1>
-                                    <p className="text-lg text-slate-400 font-light">Choose your preferred default search provider.</p>
+                                    <h1 className="font-future text-4xl md:text-5xl text-[#0A1F44] tracking-tight drop-shadow-lg">Search Engine</h1>
+                                    <p className="text-lg text-[#5F7FA6] font-light">Choose your preferred default search provider.</p>
                                 </div>
 
                                 <section className="glass-card rounded-2xl p-6 backdrop-blur-sm border border-white/5 bg-black/20 space-y-6">
                                     <div className="flex items-center justify-between">
                                         <div>
-                                            <h2 className="text-xl font-semibold text-white">Default Search Engine</h2>
-                                            <p className="text-slate-400 text-sm mt-1">Used in the address bar and new tab page.</p>
+                                            <h2 className="text-xl font-semibold text-[#0A1F44]">Default Search Engine</h2>
+                                            <p className="text-[#5F7FA6] text-sm mt-1">Used in the address bar and new tab page.</p>
                                         </div>
                                     </div>
                                     <div className="flex flex-col gap-3">
@@ -222,12 +222,12 @@ export default function SettingsPage() {
                                             <label key={engine.id} className="cursor-pointer group relative flex items-center justify-between p-4 rounded-xl border bg-[#0a0c10] transition-all" style={searchEngine === engine.id ? { borderColor: `${accentColor}80`, background: `${accentColor}11`, boxShadow: `0 0 10px ${accentColor}33` } : { borderColor: 'rgba(255,255,255,0.05)' }}>
                                                 <input className="peer sr-only" name="searchEngine" type="radio" value={engine.id} checked={searchEngine === engine.id} onChange={() => setSearchEngine(engine.id)} />
                                                 <div className="flex items-center gap-4">
-                                                    <div className="size-10 rounded-full flex items-center justify-center bg-white/5 text-slate-300 group-hover:text-white transition-colors" style={searchEngine === engine.id ? { background: `${accentColor}33`, color: accentColor } : {}}>
+                                                    <div className="size-10 rounded-full flex items-center justify-center bg-white/5 text-slate-300 group-hover:text-[#0A1F44] transition-colors" style={searchEngine === engine.id ? { background: `${accentColor}33`, color: accentColor } : {}}>
                                                         <span className="material-symbols-outlined">{engine.icon}</span>
                                                     </div>
                                                     <div>
-                                                        <p className="text-white font-medium text-lg">{engine.name}</p>
-                                                        <p className="text-slate-400 text-sm">{engine.domain}</p>
+                                                        <p className="text-[#0A1F44] font-medium text-lg">{engine.name}</p>
+                                                        <p className="text-[#5F7FA6] text-sm">{engine.domain}</p>
                                                     </div>
                                                 </div>
                                                 <div className="size-5 rounded-full border-2 flex items-center justify-center transition-colors" style={searchEngine === engine.id ? { borderColor: accentColor } : { borderColor: 'rgba(255,255,255,0.2)' }}>
@@ -243,15 +243,15 @@ export default function SettingsPage() {
                         {/* OTHER SECTIONS (Placeholder) */}
                         {(activeSection === 'privacy' || activeSection === 'general' || activeSection === 'profile' || activeSection === 'sync') && (
                             <div className="animate-fadeIn space-y-10 flex flex-col items-center justify-center py-20 opacity-50">
-                                <span className="material-symbols-outlined text-6xl text-slate-500">construction</span>
-                                <p className="text-xl text-slate-400">Section under Construction</p>
+                                <span className="material-symbols-outlined text-6xl text-[#8FA9C9]">construction</span>
+                                <p className="text-xl text-[#5F7FA6]">Section under Construction</p>
                             </div>
                         )}
 
                         {/* Save Actions */}
                         <div className="flex justify-end gap-3 pt-4 border-t border-white/5 mt-8 border-dashed">
-                            <button onClick={resetToDefaults} className="px-6 py-2.5 rounded-lg text-sm font-medium text-white hover:bg-white/10 transition-colors">Reset Defaults</button>
-                            <button className="px-8 py-2.5 rounded-lg text-sm font-medium text-white shadow-lg transition-all" style={{ background: accentColor, boxShadow: `0 4px 14px ${accentColor}66` }}>Settings Saved Automatically</button>
+                            <button onClick={resetToDefaults} className="px-6 py-2.5 rounded-lg text-sm font-medium text-[#0A1F44] hover:bg-white/10 transition-colors">Reset Defaults</button>
+                            <button className="px-8 py-2.5 rounded-lg text-sm font-medium text-[#0A1F44] shadow-lg transition-all" style={{ background: accentColor, boxShadow: `0 4px 14px ${accentColor}66` }}>Settings Saved Automatically</button>
                         </div>
                         <div className="h-10" />
                     </div>

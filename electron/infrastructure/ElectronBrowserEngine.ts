@@ -22,9 +22,11 @@ export class ElectronBrowserEngine implements IBrowserEngine {
     private stateListeners: Array<(state: BrowserUIState) => void> = [];
     private contentBounds = { x: 0, y: 0, width: 800, height: 600 };
     private isPrivateMode = false;
+    private chromeView?: WebContentsView;
 
-    constructor(window: BaseWindow) {
+    constructor(window: BaseWindow, chromeView?: WebContentsView) {
         this.window = window;
+        this.chromeView = chromeView;
     }
 
     async createTab(url?: string): Promise<TabState> {
@@ -52,12 +54,16 @@ export class ElectronBrowserEngine implements IBrowserEngine {
         // Add view to window's content view
         this.window.contentView.addChildView(view);
         view.setBounds(this.contentBounds);
-        view.setVisible(true);
 
-        // Navigate if URL provided and not the internal new tab page
-        if (url && url !== 'nexus://newtab') {
+        // Determine initial visibility and navigation
+        const normalizedUrl = url ? this.normalizeUrl(url) : 'dive://newtab';
+        const isInternal = normalizedUrl.startsWith('dive://');
+
+        view.setVisible(!isInternal);
+
+        if (!isInternal) {
             this.setupViewListeners(id, view);
-            view.webContents.loadURL(this.normalizeUrl(url));
+            view.webContents.loadURL(normalizedUrl);
             tabState.isLoading = true;
         } else {
             this.setupViewListeners(id, view);
@@ -104,17 +110,21 @@ export class ElectronBrowserEngine implements IBrowserEngine {
         const normalizedUrl = this.normalizeUrl(url);
         entry.state.url = normalizedUrl;
 
-        if (normalizedUrl.startsWith('nexus://')) {
+        if (normalizedUrl.startsWith('dive://')) {
             // Internal pages are rendered by the React UI (WebViewContainer), 
             // so we don't load them in the Chromium WebContentsView.
             entry.state.isLoading = false;
             if (entry.view) {
+                entry.view.setVisible(false);
                 entry.view.webContents.loadURL('about:blank');
             }
         } else {
             // Real web pages
             entry.state.isLoading = true;
             if (entry.view) {
+                if (entry.state.isActive) {
+                    entry.view.setVisible(true);
+                }
                 entry.view.webContents.loadURL(normalizedUrl);
             }
         }
@@ -183,7 +193,8 @@ export class ElectronBrowserEngine implements IBrowserEngine {
         this.activeTabId = tabId;
         entry.state.isActive = true;
         if (entry.view) {
-            entry.view.setVisible(true);
+            const isInternal = entry.state.url && entry.state.url.startsWith('dive://');
+            entry.view.setVisible(!isInternal);
             entry.view.setBounds(this.contentBounds);
         }
 
@@ -221,9 +232,12 @@ export class ElectronBrowserEngine implements IBrowserEngine {
         this.setupViewListeners(tabId, view);
 
         // Reload the last URL
-        if (entry.state.url && entry.state.url !== 'nexus://newtab') {
+        if (entry.state.url && !entry.state.url.startsWith('dive://')) {
             entry.state.isLoading = true;
+            view.setVisible(entry.state.isActive);
             view.webContents.loadURL(entry.state.url);
+        } else {
+            view.setVisible(false);
         }
 
         this.emitStateChange();
@@ -260,6 +274,23 @@ export class ElectronBrowserEngine implements IBrowserEngine {
         for (const entry of this.tabs.values()) {
             if (entry.view && entry.state.isActive) {
                 entry.view.setBounds(bounds);
+            }
+        }
+    }
+
+    setUIOnTop(onTop: boolean): void {
+        if (!this.chromeView) return;
+        if (onTop) {
+            this.window.contentView.removeChildView(this.chromeView);
+            this.window.contentView.addChildView(this.chromeView);
+        } else {
+            const activeId = this.getActiveTabId();
+            if (activeId) {
+                const entry = this.tabs.get(activeId);
+                if (entry?.view && !(entry.view.webContents as any).isDestroyed?.()) {
+                    this.window.contentView.removeChildView(entry.view);
+                    this.window.contentView.addChildView(entry.view);
+                }
             }
         }
     }
@@ -354,10 +385,60 @@ export class ElectronBrowserEngine implements IBrowserEngine {
                 this.emitStateChange();
             }
         });
+
+        wc.on('update-target-url', (_event, url) => {
+            const entry = this.tabs.get(tabId);
+            if (entry && entry.state.hoverUrl !== url) {
+                entry.state.hoverUrl = url;
+                this.emitStateChange();
+
+                // Inject the status tooltip directly into the web page to bypass WebContentsView layering issues
+                wc.executeJavaScript(`
+                    (function() {
+                        let el = document.getElementById('dive-hover-url');
+                        if (!el) {
+                            el = document.createElement('div');
+                            el.id = 'dive-hover-url';
+                            Object.assign(el.style, {
+                                position: 'fixed',
+                                bottom: '0',
+                                left: '0',
+                                zIndex: '2147483647',
+                                backgroundColor: 'rgba(23, 27, 36, 0.95)',
+                                color: '#cbd5e1',
+                                padding: '6px 12px',
+                                fontSize: '11px',
+                                fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif',
+                                borderTopRightRadius: '8px',
+                                borderTop: '1px solid rgba(255,255,255,0.1)',
+                                borderRight: '1px solid rgba(255,255,255,0.1)',
+                                boxShadow: '2px -2px 15px rgba(0,0,0,0.5)',
+                                maxWidth: '70%',
+                                whiteSpace: 'nowrap',
+                                overflow: 'hidden',
+                                textOverflow: 'ellipsis',
+                                pointerEvents: 'none',
+                                transition: 'opacity 0.15s ease-in-out',
+                                backdropFilter: 'blur(10px)',
+                                opacity: '0'
+                            });
+                            document.documentElement.appendChild(el);
+                        }
+                        const targetUrl = ${JSON.stringify(url)};
+                        if (targetUrl) {
+                            el.textContent = targetUrl;
+                            el.style.opacity = '1';
+                        } else {
+                            el.style.opacity = '0';
+                        }
+                    })();
+                `).catch(() => {});
+            }
+        });
     }
 
     private normalizeUrl(url: string): string {
-        if (url === 'nexus://newtab') return url;
+        if (url === 'dive://newtab') return url;
         if (url.match(/^https?:\/\//)) return url;
         if (url.includes('.') && !url.includes(' ')) return `https://${url}`;
         return `https://www.google.com/search?q=${encodeURIComponent(url)}`;

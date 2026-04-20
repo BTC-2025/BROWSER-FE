@@ -16,6 +16,7 @@ interface TabState {
     isActive: boolean;
     isPrivate: boolean;
     createdAt: number;
+    hoverUrl?: string;
 }
 
 interface BrowserUIState {
@@ -40,6 +41,7 @@ contextBridge.exposeInMainWorld('browserAPI', {
     getUIState: () => ipcRenderer.invoke('core:getUIState'),
     updateBounds: (bounds: { x: number; y: number; width: number; height: number }) =>
         ipcRenderer.invoke('core:updateBounds', bounds),
+    setUIOnTop: (onTop: boolean) => ipcRenderer.invoke('ui:setOnTop', onTop),
 
     // --- Window Controls ---
     minimizeWindow: () => ipcRenderer.invoke('window:minimize'),
@@ -55,6 +57,10 @@ contextBridge.exposeInMainWorld('browserAPI', {
 
     // --- Print ---
     print: () => ipcRenderer.invoke('core:print'),
+
+    // --- DevTools ---
+    openDevTools: () => ipcRenderer.invoke('core:openDevTools'),
+    openBrowserDevTools: () => ipcRenderer.invoke('core:openBrowserDevTools'),
 
     // --- AI Copilot Intents (Phase 3) ---
     requestSummary: (tabId: string) => ipcRenderer.invoke('ai:requestSummary', tabId),

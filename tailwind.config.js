@@ -7,11 +7,11 @@ module.exports = {
     theme: {
         extend: {
             colors: {
-                primary: '#135bec',
-                'bg-dark': '#101622',
-                'bg-chrome': '#111318',
-                'bg-surface': '#1c212b',
-                'bg-hover': '#282e39',
+                primary: '#004AAD',
+                'bg-dark': '#FFFFFF',
+                'bg-chrome': '#F4F8FF',
+                'bg-surface': '#E9F4FF',
+                'bg-hover': '#DDEEFF',
             },
             fontFamily: {
                 display: ['Inter', 'sans-serif'],

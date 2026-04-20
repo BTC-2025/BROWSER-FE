@@ -58,6 +58,9 @@ export interface IBrowserEngine {
     /** Update view bounds when window resizes */
     updateBounds(bounds: { x: number; y: number; width: number; height: number }): void;
 
+    /** Bring the React UI to the front of all WebContentsViews */
+    setUIOnTop?(onTop: boolean): void;
+
     /** Cleanup all resources */
     destroy(): void;
 }

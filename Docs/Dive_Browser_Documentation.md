@@ -1,8 +1,8 @@
-# Nexus Browser Documentation
+# Dive Browser Documentation
 
 ## 1. Project Overview
 
-Nexus Browser is an AI-native web browser built with a robust Hexagonal Architecture. It embeds a real Chromium engine (via Electron) to serve as a fast and modern browser, while integrating a rich UI built with Next.js, React, and Tailwind CSS.
+Dive Browser is an AI-native web browser built with a robust Hexagonal Architecture. It embeds a real Chromium engine (via Electron) to serve as a fast and modern browser, while integrating a rich UI built with Next.js, React, and Tailwind CSS.
 
 ### Key Technologies
 - **Electron**: Handles the main process, chromium web views, native window controls, and OS-level operations.

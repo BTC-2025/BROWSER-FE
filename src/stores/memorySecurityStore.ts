@@ -91,39 +91,8 @@ const DEFAULT_PERMISSIONS: Permission[] = [
     { scope: 'network_requests', level: 'prompt' },
 ];
 
-// Sample notes for demo
-const SAMPLE_NOTES: PageNote[] = [
-    {
-        id: 'note-sample-1',
-        url: 'https://react.dev',
-        title: 'React Documentation',
-        note: 'Good reference for hooks API — useEffect cleanup patterns and custom hooks best practices.',
-        tags: ['react', 'hooks', 'reference'],
-        createdAt: Date.now() - 86400000,
-        updatedAt: Date.now() - 3600000,
-    },
-    {
-        id: 'note-sample-2',
-        url: 'https://nextjs.org/docs',
-        title: 'Next.js Documentation',
-        note: 'App Router patterns — server components vs client components, data fetching with async RSC.',
-        tags: ['nextjs', 'server-components', 'architecture'],
-        createdAt: Date.now() - 172800000,
-        updatedAt: Date.now() - 86400000,
-    },
-    {
-        id: 'note-sample-3',
-        url: 'https://zustand-demo.pmnd.rs',
-        title: 'Zustand State Management',
-        note: 'Lightweight alternative to Redux. Subscriptions with selectors for optimal re-renders.',
-        tags: ['zustand', 'state', 'performance'],
-        createdAt: Date.now() - 259200000,
-        updatedAt: Date.now() - 172800000,
-    },
-];
-
 export const useMemorySecurityStore = create<MemorySecurityStore>((set, get) => ({
-    notes: SAMPLE_NOTES,
+    notes: [],
     isNotePanelOpen: false,
     permissions: DEFAULT_PERMISSIONS,
 

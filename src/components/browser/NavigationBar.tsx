@@ -3,7 +3,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { useBrowserStore } from '@/stores/browserStore';
 import { useAICopilotStore } from '@/stores/aiCopilotStore';
-import { useAgentRuntimeStore } from '@/stores/agentRuntimeStore';
+
 import { useMemorySecurityStore } from '@/stores/memorySecurityStore';
 import { useSettingsStore, searchEngineUrls } from '@/stores/settingsStore';
 import BrowserMenu from './BrowserMenu';
@@ -12,8 +12,6 @@ export default function NavigationBar() {
     const { tabs, activeTabId, goBack, goForward, reload, navigateToUrl } = useBrowserStore();
     const toggleAI = useAICopilotStore((s) => s.togglePanel);
     const isAIOpen = useAICopilotStore((s) => s.isOpen);
-    const toggleAgent = useAgentRuntimeStore((s) => s.togglePanel);
-    const isAgentOpen = useAgentRuntimeStore((s) => s.isOpen);
     const toggleNotes = useMemorySecurityStore((s) => s.toggleNotePanel);
     const isNotesOpen = useMemorySecurityStore((s) => s.isNotePanelOpen);
     const [inputValue, setInputValue] = useState('');
@@ -29,7 +27,7 @@ export default function NavigationBar() {
     // Sync input with active tab URL
     useEffect(() => {
         if (activeTab && !isFocused) {
-            const displayUrl = activeTab.url === 'nexus://newtab' ? '' : activeTab.url;
+            const displayUrl = activeTab.url === 'dive://newtab' ? '' : activeTab.url;
             setInputValue(displayUrl);
         }
     }, [activeTab?.url, activeTab?.id, isFocused]);
@@ -40,7 +38,7 @@ export default function NavigationBar() {
             const raw = inputValue.trim();
             let url = raw;
             // Internal pages
-            if (raw.startsWith('nexus://')) {
+            if (raw.startsWith('dive://')) {
                 url = raw;
             }
             // Already a full URL
@@ -77,33 +75,33 @@ export default function NavigationBar() {
         }
     };
 
-    const isNewTab = !activeTab || activeTab.url === 'nexus://newtab';
+    const isNewTab = !activeTab || activeTab.url === 'dive://newtab';
     const isSecure = activeTab?.url?.startsWith('https://');
 
     return (
         <div
             className="flex items-center gap-3 px-4 py-2 no-drag"
-            style={{ background: '#111318', borderTop: '1px solid #282e39' }}
+            style={{ background: '#F4F8FF', borderTop: '1px solid #DDEEFF' }}
         >
             {/* Navigation Controls */}
-            <div className="flex items-center gap-1 text-slate-400">
+            <div className="flex items-center gap-1 text-[#5F7FA6]">
                 <button
                     onClick={goBack}
                     disabled={!activeTab?.canGoBack}
-                    className="p-1.5 hover:bg-[#282e39] rounded-lg transition-colors hover:text-white disabled:opacity-30 disabled:cursor-not-allowed"
+                    className="p-1.5 hover:bg-[#DDEEFF] rounded-lg transition-colors hover:text-[#0A1F44] disabled:opacity-30 disabled:cursor-not-allowed"
                 >
                     <span className="material-symbols-outlined text-[20px]">arrow_back</span>
                 </button>
                 <button
                     onClick={goForward}
                     disabled={!activeTab?.canGoForward}
-                    className="p-1.5 hover:bg-[#282e39] rounded-lg transition-colors hover:text-white disabled:opacity-30 disabled:cursor-not-allowed"
+                    className="p-1.5 hover:bg-[#DDEEFF] rounded-lg transition-colors hover:text-[#0A1F44] disabled:opacity-30 disabled:cursor-not-allowed"
                 >
                     <span className="material-symbols-outlined text-[20px]">arrow_forward</span>
                 </button>
                 <button
                     onClick={reload}
-                    className="p-1.5 hover:bg-[#282e39] rounded-lg transition-colors hover:text-white"
+                    className="p-1.5 hover:bg-[#DDEEFF] rounded-lg transition-colors hover:text-[#0A1F44]"
                 >
                     <span className={`material-symbols-outlined text-[20px] ${activeTab?.isLoading ? 'animate-spin' : ''}`}>
                         {activeTab?.isLoading ? 'progress_activity' : 'refresh'}
@@ -116,28 +114,28 @@ export default function NavigationBar() {
                 <div
                     className={`
             group relative flex items-center w-full h-9 
-            bg-[#1c212b] border rounded-full px-3 
+            bg-[#E9F4FF] border rounded-full px-3 
             transition-all shadow-inner
             ${isFocused
                             ? 'ring-2'
-                            : 'border-[#282e39] hover:border-[#3c4453]'
+                            : 'border-[#DDEEFF] hover:border-[#A6C8FF]'
                         }
           `}
                     style={isFocused ? { borderColor: accentColor, '--tw-ring-color': `${accentColor}80` } as React.CSSProperties : {}}
                 >
                     {/* Security Indicator */}
                     {!isNewTab && (
-                        <span className={`material-symbols-outlined text-[18px] mr-2 ${isSecure ? 'text-[#135bec]' : 'text-slate-500'}`}>
+                        <span className={`material-symbols-outlined text-[18px] mr-2 ${isSecure ? 'text-[#004AAD]' : 'text-[#8FA9C9]'}`}>
                             {isSecure ? 'lock' : 'info'}
                         </span>
                     )}
                     {isNewTab && (
-                        <span className="material-symbols-outlined text-[18px] mr-2 text-slate-500">search</span>
+                        <span className="material-symbols-outlined text-[18px] mr-2 text-[#8FA9C9]">search</span>
                     )}
 
                     {/* URL Prefix */}
                     {!isFocused && !isNewTab && activeTab?.url?.startsWith('https://') && (
-                        <span className="text-slate-500 text-sm mr-0.5">https://</span>
+                        <span className="text-[#8FA9C9] text-sm mr-0.5">https://</span>
                     )}
 
                     {/* Input */}
@@ -150,14 +148,14 @@ export default function NavigationBar() {
                         onBlur={handleBlur}
                         onKeyDown={handleKeyDown}
                         placeholder="Search or type a URL"
-                        className="flex-1 bg-transparent border-none p-0 text-sm text-white placeholder-slate-500 focus:outline-none focus:ring-0"
+                        className="flex-1 bg-transparent border-none p-0 text-sm text-[#0A1F44] placeholder-slate-500 focus:outline-none focus:ring-0"
                     />
 
                     {/* Bookmark Star */}
                     <div className="flex items-center gap-1 ml-2">
                         <button
                             type="button"
-                            className="p-1 hover:bg-[#282e39] rounded-full text-slate-400 hover:text-[#135bec] transition-colors"
+                            className="p-1 hover:bg-[#DDEEFF] rounded-full text-[#5F7FA6] hover:text-[#004AAD] transition-colors"
                         >
                             <span className="material-symbols-outlined text-[18px]">star</span>
                         </button>
@@ -166,43 +164,30 @@ export default function NavigationBar() {
             </form>
 
             {/* Extension Area & Menu */}
-            <div className="flex items-center gap-2 pl-2" style={{ borderLeft: '1px solid #282e39' }}>
+            <div className="flex items-center gap-2 pl-2" style={{ borderLeft: '1px solid #DDEEFF' }}>
                 {/* AI Copilot Toggle */}
                 <button
                     onClick={toggleAI}
                     className={`p-1.5 rounded-lg transition-colors relative ${isAIOpen
-                        ? 'bg-[#135bec]/20 text-[#135bec]'
-                        : 'hover:bg-[#282e39] text-slate-400 hover:text-white'
+                        ? 'bg-[#004AAD]/20 text-[#004AAD]'
+                        : 'hover:bg-[#DDEEFF] text-[#5F7FA6] hover:text-[#0A1F44]'
                         }`}
                     title="Toggle AI Copilot"
                 >
                     <span className="material-symbols-outlined text-[20px]">auto_awesome</span>
                     {isAIOpen && (
-                        <span className="absolute -top-0.5 -right-0.5 w-2 h-2 bg-[#135bec] rounded-full shadow-[0_0_6px_rgba(19,91,236,0.6)]" />
+                        <span className="absolute -top-0.5 -right-0.5 w-2 h-2 bg-[#004AAD] rounded-full shadow-[0_0_6px_rgba(0, 74, 173,0.6)]" />
                     )}
                 </button>
 
-                {/* Agent Runtime Toggle */}
-                <button
-                    onClick={toggleAgent}
-                    className={`p-1.5 rounded-lg transition-colors relative ${isAgentOpen
-                        ? 'bg-amber-500/20 text-amber-400'
-                        : 'hover:bg-[#282e39] text-slate-400 hover:text-white'
-                        }`}
-                    title="Toggle Agent Runtime"
-                >
-                    <span className="material-symbols-outlined text-[20px]">memory</span>
-                    {isAgentOpen && (
-                        <span className="absolute -top-0.5 -right-0.5 w-2 h-2 bg-amber-500 rounded-full shadow-[0_0_6px_rgba(245,158,11,0.6)]" />
-                    )}
-                </button>
+
 
                 {/* Page Notes Toggle */}
                 <button
                     onClick={toggleNotes}
                     className={`p-1.5 rounded-lg transition-colors relative ${isNotesOpen
                         ? 'bg-violet-500/20 text-violet-400'
-                        : 'hover:bg-[#282e39] text-slate-400 hover:text-white'
+                        : 'hover:bg-[#DDEEFF] text-[#5F7FA6] hover:text-[#0A1F44]'
                         }`}
                     title="Toggle Page Notes"
                 >
@@ -212,12 +197,12 @@ export default function NavigationBar() {
                     )}
                 </button>
 
-                <button className="p-1.5 hover:bg-[#282e39] rounded-lg text-slate-400 hover:text-white transition-colors relative">
+                <button className="p-1.5 hover:bg-[#DDEEFF] rounded-lg text-[#5F7FA6] hover:text-[#0A1F44] transition-colors relative">
                     <span className="material-symbols-outlined text-[20px]">extension</span>
-                    <span className="absolute top-1 right-1 w-2 h-2 bg-[#135bec] rounded-full border border-[#111318]" />
+                    <span className="absolute top-1 right-1 w-2 h-2 bg-[#004AAD] rounded-full border border-[#F4F8FF]" />
                 </button>
 
-                <button className="flex items-center gap-2 px-3 py-1.5 bg-[#135bec] hover:bg-[#135bec]/90 text-white rounded-lg text-xs font-bold tracking-wide transition-colors">
+                <button className="flex items-center gap-2 px-3 py-1.5 bg-[#004AAD] hover:bg-[#004AAD]/90 text-[#0A1F44] rounded-lg text-xs font-bold tracking-wide transition-colors">
                     <span className="material-symbols-outlined text-[16px]">account_circle</span>
                     <span>Sign In</span>
                 </button>
@@ -228,8 +213,8 @@ export default function NavigationBar() {
                         onClick={() => setIsMenuOpen((o) => !o)}
                         className={`p-1.5 rounded-lg transition-colors ${
                             isMenuOpen
-                                ? 'bg-[#282e39] text-white'
-                                : 'hover:bg-[#282e39] text-slate-400 hover:text-white'
+                                ? 'bg-[#DDEEFF] text-[#0A1F44]'
+                                : 'hover:bg-[#DDEEFF] text-[#5F7FA6] hover:text-[#0A1F44]'
                         }`}
                         title="Browser menu"
                     >

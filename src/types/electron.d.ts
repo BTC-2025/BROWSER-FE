@@ -12,6 +12,7 @@ export interface TabState {
     isActive: boolean;
     isPrivate: boolean;
     createdAt: number;
+    hoverUrl?: string;
 }
 
 export interface BrowserUIState {

@@ -22,12 +22,14 @@ export interface TabState {
     isPrivate: boolean;
     /** Timestamp of when the tab was created */
     createdAt: number;
+    /** URL currently hovered by the user */
+    hoverUrl?: string;
 }
 
 export function createDefaultTabState(id: string, url?: string): TabState {
     return {
         id,
-        url: url || 'nexus://newtab',
+        url: url || 'dive://newtab',
         title: 'New Tab',
         favicon: '',
         isLoading: false,

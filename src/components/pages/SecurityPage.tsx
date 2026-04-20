@@ -46,20 +46,20 @@ export default function SecurityPage() {
     const promptCount = permissions.filter((p) => p.level === 'prompt').length;
 
     return (
-        <main className="flex-1 overflow-y-auto" style={{ background: '#101622' }}>
+        <main className="flex-1 overflow-y-auto" style={{ background: '#FFFFFF' }}>
             <div className="max-w-4xl mx-auto px-8 py-10">
                 {/* Header */}
                 <div className="flex items-start justify-between mb-8">
                     <div className="flex items-center gap-4">
                         <div className="size-14 rounded-2xl bg-gradient-to-br from-emerald-500 to-teal-600 flex items-center justify-center shadow-[0_0_20px_rgba(16,185,129,0.3)]">
-                            <span className="material-symbols-outlined text-white text-3xl">shield</span>
+                            <span className="material-symbols-outlined text-[#0A1F44] text-3xl">shield</span>
                         </div>
                         <div>
-                            <h1 className="text-3xl font-bold text-white" style={{ fontFamily: 'Audiowide, sans-serif' }}>
+                            <h1 className="text-3xl font-bold text-[#0A1F44]" style={{ fontFamily: 'Audiowide, sans-serif' }}>
                                 Security & Permissions
                             </h1>
-                            <p className="text-sm text-slate-400 mt-1">
-                                Control what Nexus Browser and extensions can access
+                            <p className="text-sm text-[#5F7FA6] mt-1">
+                                Control what Dive Browser and extensions can access
                             </p>
                         </div>
                     </div>
@@ -90,9 +90,9 @@ export default function SecurityPage() {
                             <div className="flex items-center gap-2">
                                 <span className={`material-symbols-outlined text-[20px] ${stat.color === 'emerald' ? 'text-emerald-400' : stat.color === 'amber' ? 'text-amber-400' : 'text-red-400'
                                     }`}>{stat.icon}</span>
-                                <span className="text-2xl font-bold text-white">{stat.count}</span>
+                                <span className="text-2xl font-bold text-[#0A1F44]">{stat.count}</span>
                             </div>
-                            <p className="text-xs text-slate-400 mt-1">{stat.label}</p>
+                            <p className="text-xs text-[#5F7FA6] mt-1">{stat.label}</p>
                         </div>
                     ))}
                 </div>
@@ -101,7 +101,7 @@ export default function SecurityPage() {
                 <div className="space-y-6">
                     {SCOPE_GROUPS.map((group) => (
                         <div key={group.title}>
-                            <h3 className="text-xs font-bold text-slate-400 uppercase tracking-wider mb-3">{group.title}</h3>
+                            <h3 className="text-xs font-bold text-[#5F7FA6] uppercase tracking-wider mb-3">{group.title}</h3>
                             <div className="rounded-xl border border-white/5 overflow-hidden">
                                 {group.scopes.map((scope, i) => {
                                     const level = getLevel(scope);
@@ -117,8 +117,8 @@ export default function SecurityPage() {
                                                 <span className="material-symbols-outlined text-slate-300 text-[20px]">{info.icon}</span>
                                             </div>
                                             <div className="flex-1 min-w-0">
-                                                <p className="text-sm font-medium text-white">{info.label}</p>
-                                                <p className="text-[11px] text-slate-500">{info.description}</p>
+                                                <p className="text-sm font-medium text-[#0A1F44]">{info.label}</p>
+                                                <p className="text-[11px] text-[#8FA9C9]">{info.description}</p>
                                             </div>
                                             <button
                                                 onClick={() => cycleLevel(scope)}
@@ -143,8 +143,8 @@ export default function SecurityPage() {
                     <div className="flex gap-3">
                         <span className="material-symbols-outlined text-emerald-400 text-[20px] shrink-0 mt-0.5">info</span>
                         <div>
-                            <p className="text-sm font-semibold text-white">How permissions work</p>
-                            <p className="text-xs text-slate-400 mt-1 leading-relaxed">
+                            <p className="text-sm font-semibold text-[#0A1F44]">How permissions work</p>
+                            <p className="text-xs text-[#5F7FA6] mt-1 leading-relaxed">
                                 Click any permission to cycle through <strong className="text-emerald-400">Allowed</strong>,{' '}
                                 <strong className="text-amber-400">Ask First</strong>, and{' '}
                                 <strong className="text-red-400">Blocked</strong>. Extensions and agents inherit these settings.

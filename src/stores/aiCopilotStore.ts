@@ -110,7 +110,7 @@ function fallbackChat(userQuery: string, error?: string): string {
     }
 
     if (userQuery.toLowerCase().includes('hello') || userQuery.toLowerCase().includes('hi')) {
-        return "Hello! 👋 I'm **Nexus AI**, your intelligent browsing companion. I can:\n\n• 📝 **Summarize** any web page\n• 💬 **Chat** about content you're viewing\n• 🔍 **Enhance** your search queries\n• 🧠 **Explain** complex topics\n\nHow can I help you today?";
+        return "Hello! 👋 I'm **Dive AI**, your intelligent browsing companion. I can:\n\n• 📝 **Summarize** any web page\n• 💬 **Chat** about content you're viewing\n• 🔍 **Enhance** your search queries\n• 🧠 **Explain** complex topics\n\nHow can I help you today?";
     }
 
     return `I'd love to help with "${userQuery}"! To get full AI-powered responses, add your Google API key to the \`.env\` file. Once configured, I'll use **Gemini 2.0 Flash** to provide intelligent answers.\n\nGet a free key: [aistudio.google.com/apikey](https://aistudio.google.com/apikey)`;
@@ -122,7 +122,7 @@ function fallbackSummarize(): AISummary {
         keyPoints: [
             'Configure your Google API key in .env to enable AI-powered summaries.',
             'Get a free key at aistudio.google.com/apikey',
-            'Once configured, Nexus AI will analyze page content using Gemini 2.0 Flash.',
+            'Once configured, Dive AI will analyze page content using Gemini 2.0 Flash.',
             'Summaries include key points, reading time, and sentiment analysis.',
         ],
         sentiment: 'neutral',

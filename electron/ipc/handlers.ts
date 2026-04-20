@@ -57,6 +57,12 @@ export function registerIpcHandlers(
         onBoundsUpdate?.(bounds);
     });
 
+    ipcMain.handle('ui:setOnTop', async (_event, onTop: boolean) => {
+        if (engine.setUIOnTop) {
+            engine.setUIOnTop(onTop);
+        }
+    });
+
     // --- Zoom ---
     ipcMain.handle('core:setZoom', async (_event, factor: number) => {
         const activeId = engine.getActiveTabId();
@@ -86,6 +92,22 @@ export function registerIpcHandlers(
         const wc = (engine as any).tabs?.get(activeId)?.view?.webContents;
         if (wc && !wc.isDestroyed()) {
             wc.stopFindInPage('clearSelection');
+        }
+    });
+
+    // --- DevTools ---
+    ipcMain.handle('core:openDevTools', async () => {
+        const activeId = engine.getActiveTabId();
+        if (!activeId) return;
+        const wc = (engine as any).tabs?.get(activeId)?.view?.webContents;
+        if (wc && !wc.isDestroyed()) {
+            wc.openDevTools({ mode: 'right' });
+        }
+    });
+
+    ipcMain.handle('core:openBrowserDevTools', async () => {
+        if (chromeView && !chromeView.webContents.isDestroyed()) {
+            chromeView.webContents.openDevTools({ mode: 'right' });
         }
     });
 

@@ -1,5 +1,5 @@
 {
-  "name": "nexus-browser",
+  "name": "dive-browser",
   "version": "0.1.0",
   "description": "AI-native web browser with Hexagonal Architecture",
   "main": "dist-electron/main.js",
@@ -11,8 +11,36 @@
     "build:next": "next build",
     "build:electron": "tsc -p tsconfig.electron.json",
     "build": "npm run build:next && npm run build:electron",
+    "pack": "npm run build && electron-builder --dir",
+    "dist": "npm run build && electron-builder",
+    "dist:mac": "npm run build && electron-builder --mac",
+    "dist:win": "npm run build && electron-builder --win",
     "start": "electron .",
     "postinstall": "electron-builder install-app-deps"
+  },
+  "build": {
+    "appId": "com.dive.browser",
+    "productName": "Dive Browser",
+    "directories": {
+      "output": "release"
+    },
+    "files": [
+      "dist-electron/**/*",
+      "out/**/*",
+      "package.json"
+    ],
+    "mac": {
+      "target": [
+        "dmg"
+      ],
+      "icon": "out/favicon.ico"
+    },
+    "win": {
+      "target": [
+        "nsis"
+      ],
+      "icon": "out/favicon.ico"
+    }
   },
   "dependencies": {
     "@google/genai": "^1.43.0",

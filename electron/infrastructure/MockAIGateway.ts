@@ -45,14 +45,14 @@ export class MockAIGateway implements IAIGateway {
         await new Promise((r) => setTimeout(r, 800));
 
         if (userQuery.toLowerCase().includes('hello') || userQuery.toLowerCase().includes('hi')) {
-            return "Hello! I'm Nexus AI, your browsing assistant. I can help you summarize pages, answer questions about content you're viewing, and enhance your searches. What would you like to do?";
+            return "Hello! I'm Dive AI, your browsing assistant. I can help you summarize pages, answer questions about content you're viewing, and enhance your searches. What would you like to do?";
         }
 
         if (userQuery.toLowerCase().includes('help')) {
             return "Here's what I can do:\n\n• **Summarize** — Get a quick overview of any page\n• **Chat** — Ask questions about the current page\n• **Search** — I'll help refine your search queries\n• **Explain** — Break down complex content\n\nJust ask away!";
         }
 
-        return `That's an interesting question about "${userQuery}". In a full implementation, I'd connect to an LLM provider (like OpenAI, Anthropic, or a local model) to give you a detailed answer. For now, this is a simulated response from the Nexus AI mock gateway.`;
+        return `That's an interesting question about "${userQuery}". In a full implementation, I'd connect to an LLM provider (like OpenAI, Anthropic, or a local model) to give you a detailed answer. For now, this is a simulated response from the Dive AI mock gateway.`;
     }
 
     async enhanceSearchQuery(query: string): Promise<string> {
