@@ -3,17 +3,60 @@
 import React, { useState, useEffect } from 'react';
 import { useBrowserStore } from '@/stores/browserStore';
 import { useSettingsStore, searchEngineUrls } from '@/stores/settingsStore';
+import DiveLogo from '@/components/brand/DiveLogo';
 
 // Quick link data
+// const quickLinks = [
+//     { name: 'GitHub', icon: <span className="material-symbols-outlined text-[24px]">code</span> },
+//     { name: 'YouTube', icon: <span className="material-symbols-outlined text-[24px]">smart_display</span> },
+//     { name: 'Figma', icon: <span className="material-symbols-outlined text-[24px]">draw</span> },
+//     { name: 'Notion', icon: <span className="material-symbols-outlined text-[24px]">receipt_long</span> },
+//     { name: 'Linear', icon: <span className="material-symbols-outlined text-[24px]">timeline</span> },
+//     { name: 'Reddit', icon: <span className="material-symbols-outlined text-[24px]">forum</span> },
+//     { name: 'X', icon: <span className="material-symbols-outlined text-[24px]">alternate_email</span> },
+//     { name: 'Maps', icon: <span className="material-symbols-outlined text-[24px]">map</span> },
+// ];
 const quickLinks = [
-    { name: 'GitHub', icon: <span className="material-symbols-outlined text-[24px]">code</span> },
-    { name: 'YouTube', icon: <span className="material-symbols-outlined text-[24px]">smart_display</span> },
-    { name: 'Figma', icon: <span className="material-symbols-outlined text-[24px]">draw</span> },
-    { name: 'Notion', icon: <span className="material-symbols-outlined text-[24px]">receipt_long</span> },
-    { name: 'Linear', icon: <span className="material-symbols-outlined text-[24px]">timeline</span> },
-    { name: 'Reddit', icon: <span className="material-symbols-outlined text-[24px]">forum</span> },
-    { name: 'X', icon: <span className="material-symbols-outlined text-[24px]">alternate_email</span> },
-    { name: 'Maps', icon: <span className="material-symbols-outlined text-[24px]">map</span> },
+    { 
+        name: 'GitHub', 
+        url: 'https://github.com', 
+        icon: <span className="material-symbols-outlined text-[24px]">code</span> 
+    },
+    { 
+        name: 'YouTube', 
+        url: 'https://youtube.com', 
+        icon: <span className="material-symbols-outlined text-[24px]">smart_display</span> 
+    },
+    { 
+        name: 'Figma', 
+        url: 'https://figma.com', 
+        icon: <span className="material-symbols-outlined text-[24px]">draw</span> 
+    },
+    { 
+        name: 'Notion', 
+        url: 'https://notion.so', 
+        icon: <span className="material-symbols-outlined text-[24px]">receipt_long</span> 
+    },
+    { 
+        name: 'Linear', 
+        url: 'https://linear.app', 
+        icon: <span className="material-symbols-outlined text-[24px]">timeline</span> 
+    },
+    { 
+        name: 'Reddit', 
+        url: 'https://reddit.com', 
+        icon: <span className="material-symbols-outlined text-[24px]">forum</span> 
+    },
+    { 
+        name: 'X', 
+        url: 'https://x.com', 
+        icon: <span className="material-symbols-outlined text-[24px]">alternate_email</span> 
+    },
+    { 
+        name: 'Maps', 
+        url: 'https://maps.google.com', 
+        icon: <span className="material-symbols-outlined text-[24px]">map</span> 
+    },
 ];
 
 const discoverFeed = [
@@ -28,7 +71,7 @@ const discoverFeed = [
 const weatherMock = {
     temp: '72°',
     condition: 'Partly Cloudy',
-    location: 'San Francisco',
+    location: 'Chennai',
     icon: 'partly_cloudy_day'
 };
 
@@ -152,20 +195,27 @@ export default function NewTabPage() {
             <div className={`w-full max-w-3xl flex flex-col items-center flex-1 min-h-[40vh] justify-center mt-4 gap-8 relative z-10 ${animations ? 'animate-in fade-in zoom-in-95 duration-1000' : ''}`}>
                 
                 {/* Logo */}
-                <h1 
-                    className="font-future font-bold tracking-tighter select-none"
-                    style={{
-                        fontSize: '5rem',
-                        lineHeight: '1.4',
-                        padding: '0 0.2em',
-                        background: `linear-gradient(to right, ${accentColor}, #4D88FF)`,
-                        WebkitBackgroundClip: 'text',
-                        WebkitTextFillColor: 'transparent',
-                        filter: 'drop-shadow(0px 4px 10px rgba(0, 74, 173, 0.2))'
-                    }}
-                >
-                    DIVE
-                </h1>
+<h1 
+  className="select-none"
+  style={{
+    fontFamily: "orbitron",
+    fontSize: '3.8rem',
+    fontWeight: 800,
+    letterSpacing: '-1px',
+    lineHeight: '1.2',
+    background: `linear-gradient(to right, ${accentColor}, #4D88FF)`,
+    WebkitBackgroundClip: 'text',
+    WebkitTextFillColor: 'transparent',
+    filter: 'drop-shadow(0px 6px 20px rgba(0, 74, 173, 0.25))'
+  }}
+>
+  KinsWord
+</h1>
+
+                {/* <DiveLogo
+                    className="select-none"
+                    markClassName="h-24 w-auto md:h-28 drop-shadow-[0_10px_24px_rgba(0,74,173,0.18)]"
+                /> */}
 
                 {/* Search Bar */}
                 <form onSubmit={handleSearch} className="w-full relative group">
@@ -204,10 +254,9 @@ export default function NewTabPage() {
                 {/* Quick Links */}
                 <div className="flex flex-wrap justify-center gap-6 w-full max-w-2xl px-4 mt-2">
                     {quickLinks.map((link) => (
-                        <a
+                        <div
                             key={link.name}
-                            href="#"
-                            onClick={(e) => e.preventDefault()}
+                            onClick={() => navigateToUrl(activeTabId!, link.url)}
                             className="flex flex-col items-center justify-center gap-3 p-3 rounded-2xl group/card cursor-pointer hover:bg-white/60 transition-colors"
                         >
                             <div
@@ -218,7 +267,7 @@ export default function NewTabPage() {
                             <span className="text-xs font-medium text-[#5F7FA6] group-hover/card:text-[#0A1F44] transition-colors">
                                 {link.name}
                             </span>
-                        </a>
+                        </div>
                     ))}
                 </div>
             </div>

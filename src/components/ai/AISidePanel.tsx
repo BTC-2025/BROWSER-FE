@@ -59,7 +59,7 @@ export default function AISidePanel() {
                     </div>
                     <div>
                         <h3 className="text-sm font-bold text-[#0A1F44]">Dive AI</h3>
-                        <p className="text-[10px] text-[#8FA9C9]">Copilot</p>
+                        {/* <p className="text-[10px] text-[#8FA9C9]">Copilot</p> */}
                     </div>
                 </div>
                 <div className="flex items-center gap-1">

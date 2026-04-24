@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
+import DiveLogo from '@/components/brand/DiveLogo';
 
 // Sample history data grouped by date
 const historyData = {
@@ -43,9 +44,10 @@ export default function HistoryBookmarksPage() {
             {/* Top Bar */}
             <header className="flex items-center justify-between px-6 py-3 border-b border-slate-800 bg-[#FFFFFF]/80 backdrop-blur-md z-50">
                 <div className="flex items-center gap-4">
-                    <div className="size-8 text-[#004AAD] flex items-center justify-center bg-[#004AAD]/10 rounded-lg">
-                        <span className="material-symbols-outlined text-2xl">public</span>
-                    </div>
+                    <DiveLogo
+                        className="h-8 w-14 shrink-0 rounded-lg bg-white shadow-sm ring-1 ring-[#DDEEFF]"
+                        markClassName="h-5 w-auto"
+                    />
                     <h2 className="text-lg font-bold leading-tight tracking-tight text-[#0A1F44]">Dive Browser</h2>
                 </div>
                 <nav className="hidden md:flex items-center gap-8">

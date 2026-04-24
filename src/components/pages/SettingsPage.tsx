@@ -2,6 +2,7 @@
 
 import React, { useState } from 'react';
 import { useSettingsStore, SearchEngine, NewTabBackground } from '@/stores/settingsStore';
+import DiveLogo from '@/components/brand/DiveLogo';
 
 const settingsNav = [
     {
@@ -58,11 +59,12 @@ export default function SettingsPage() {
                 {/* Header Logo */}
                 <div className="p-6 pb-2">
                     <div className="flex items-center gap-3">
-                        <div className="flex items-center justify-center size-10 rounded-xl text-[#0A1F44]" style={{ background: `linear-gradient(135deg, ${accentColor}, #8b5cf6)`, boxShadow: `0 0 15px ${accentColor}66` }}>
-                            <span className="material-symbols-outlined text-2xl">rocket_launch</span>
-                        </div>
+                        <DiveLogo
+                            className="h-10 w-16 shrink-0 rounded-xl bg-white/80 shadow-sm ring-1 ring-white/50"
+                            markClassName="h-7 w-auto"
+                        />
                         <div>
-                            <h1 className="font-future text-xl tracking-wide text-[#0A1F44]">DIVE</h1>
+                            <h1 className="font-future text-xl tracking-wide text-[#0A1F44]">Dive</h1>
                             <p className="text-xs text-[#5F7FA6]">Settings</p>
                         </div>
                     </div>

@@ -4,6 +4,10 @@ import './globals.css';
 export const metadata: Metadata = {
     title: 'Dive Browser',
     description: 'AI-native web browser with Hexagonal Architecture',
+    icons: {
+        icon: '/icon.png',
+        apple: '/icon.png',
+    },
 };
 
 export default function RootLayout({
@@ -24,6 +28,9 @@ export default function RootLayout({
                     href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&display=swap"
                     rel="stylesheet"
                 />
+                <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;800&display=swap" rel="stylesheet"></link>
+                <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700&display=swap" rel="stylesheet"></link>
+                <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;700&display=swap" rel="stylesheet"></link>
             </head>
             <body>
                 {children}

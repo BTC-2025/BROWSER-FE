@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect } from 'react';
 import { useBrowserStore } from '@/stores/browserStore';
+import { DIVE_ICON_SRC } from '@/components/brand/DiveLogo';
 
 export default function TabStrip() {
     const { tabs, activeTabId, openTab, closeTab, setActiveTab } = useBrowserStore();
@@ -62,9 +63,11 @@ export default function TabStrip() {
                             {/* Tab Favicon */}
                             {tab.favicon ? (
                                 <img src={tab.favicon} alt="" className="w-4 h-4 rounded-sm" />
+                            ) : tab.url === 'dive://newtab' ? (
+                                <img src={DIVE_ICON_SRC} alt="" className="w-4 h-4 object-contain" />
                             ) : (
                                 <span className={`material-symbols-outlined text-[16px] ${isActive ? 'text-[#004AAD]' : ''}`}>
-                                    {tab.url === 'dive://newtab' ? 'public' : 'language'}
+                                    language
                                 </span>
                             )}
 
